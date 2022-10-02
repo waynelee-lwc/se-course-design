@@ -79,10 +79,6 @@
 
 ​	tsid,mon,tue,...,sun
 
-#### schedule
-
-​	sche_id, semester
-
 #### course_schedule
 
 ​	sche_id, course, state
