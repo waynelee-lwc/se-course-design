@@ -4,7 +4,7 @@ window.onresize = function(){
 	document.getElementsByTagName('html')[0].style.fontSize = (16/1920) * window.innerWidth + "px";
 }
 
-let address = 'http://43.138.86.233:3011'
+let address = 'http://www.wayne-lee.cn:3012/'
 
 $('.role-radio').click(function(e){
     console.log(e)
@@ -17,7 +17,7 @@ $('.login-submit').on('click',function(){
     let role = $("input:radio:checked").val()
 
     $.ajax({
-        url:`${address}/user/login`,
+        url:`${address}/login`,
         type:'post',
         data:{
             id:userid,

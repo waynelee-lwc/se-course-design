@@ -26,7 +26,8 @@ body {
 }
 
 body{
-	background-image:url(./background.jpeg)
+	background-image:url(./background.jpeg);
+  background-size:auto;
 }
 
 .form-signin {
