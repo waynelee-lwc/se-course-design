@@ -1,0 +1,19 @@
+{
+  "name": "se-course-design",
+  "version": "1.0.0",
+  "description": "2119软工课设",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waynelee-lwc/se-course-design.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waynelee-lwc/se-course-design/issues"
+  },
+  "homepage": "https://github.com/waynelee-lwc/se-course-design#readme"
+}
