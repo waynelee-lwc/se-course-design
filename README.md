@@ -81,7 +81,7 @@
 
 #### course_schedule
 
-​	sche_id, course, state
+​	sche_id, cid, state
 
 #### schedule
 

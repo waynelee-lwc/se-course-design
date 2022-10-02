@@ -1,0 +1,7 @@
+{
+	"host":	"www.wayne-lee.cn",
+	"port":	3306,
+	"user":	"se_course_design",
+	"password":	"jlu_SE_2119",
+	"database": "se_course_design"
+}

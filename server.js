@@ -22,6 +22,11 @@ app.get('/hello',(req,res)=>{
     res.end('hello world')
 })
 
+// 登录接口
+login = require('./server/login.js')
+app.post('/login',login)
+
 let server = app.listen(3012,()=>{
     console.log('The server is listening on port : 3012')
 })
+
