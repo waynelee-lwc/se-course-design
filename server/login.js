@@ -36,6 +36,7 @@ async function user_login(req,res){
         return 
     }
     result = result[0]
+    console.log(result)
     if(result.password != data.password) {
         res.send({
 			"message": "密码错误",
@@ -47,9 +48,15 @@ async function user_login(req,res){
 
     let token = random_string(16)
     // console.log(token)
+
+    let tid = 0
+    if (data.role == "student") tid =  result.sid
+    if (data.role == "professor") tid = result.pid
+    if (data.role == "registrar") tid =  result.rid
+        
     tool.token_list[token] = {
     	"role": data.role,
-    	"id": result.id,
+    	"id": tid,
         "name": result.name, 
     }
     result.password = ""
