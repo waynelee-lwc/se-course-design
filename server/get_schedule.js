@@ -14,13 +14,15 @@ async function getSchedule(req,res){
         })
         return
     }
+
+    console.log(tmp)
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    
     var sql = mysql.format("select count(*) from schedule where schedule.sid = ? ", [id])
     var result = await query(sql)
     
-    // console.log(sql)
-    // console.log(result)
+    console.log(sql)
+    console.log(result)
+
     if (result.status == 0) {
         res.send({
             "message": result.msg,
@@ -40,6 +42,11 @@ async function getSchedule(req,res){
         return
     }
 
+    sql = mysql.format("select * " + 
+        " from course join course_schedule on course.cid = course_schedule.cid " + 
+                    " join time_slot on course.tsid = time_slot.tsid " +
+                    " join schedule on schedule.sche_id = course_schedule.sche_id " + 
+        " where schedule.sid = ? ", [id])
     result = await query(sql)
     // console.log(sql)
     // console.log(result)
