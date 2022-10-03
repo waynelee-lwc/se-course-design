@@ -79,6 +79,7 @@ $('.search-submit').click(loadSectionList)
 $('.create-course-submit').click(createCourse)
 $('.cross').click(hideShadow)
 $('.stu-add-submit').click(addStudent)
+$('.pro-add-submit').click(addProfessor)
 
 function addStudent(){
     let name = $('.student-add .stu-name input').val()
@@ -98,6 +99,33 @@ function addStudent(){
             name:name,
             birthday:birthday,
             graduation_date:graduation,
+            ssn:ssn,
+            status:0,
+        },
+        success:(res)=>{
+            console.log(res)
+        }
+    })
+}
+
+function addProfessor(){
+    let name = $('.student-add .pro-name input').val()
+    let birthday = $('.student-add .pro-birthday input').val()
+    let dept = $('.student-add .pro-dept input').val()
+    let ssn = $('.student-add .pro-ssn input').val()
+    
+    // console.log(name,birthday,graduation,ssn)
+
+    $.ajax({
+        url:`${address}/addProfessor`,
+        type:'post',
+        headers:{
+            'token':'registrar',
+        },
+        data:{
+            name:name,
+            birthday:birthday,
+            dept:dept,
             ssn:ssn,
             status:0,
         },
