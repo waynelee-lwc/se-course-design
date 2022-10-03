@@ -25,6 +25,8 @@ body{
 
 .dashboard{
     padding: 0rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .icon{
@@ -131,6 +133,16 @@ body{
     height: 40%;
     overflow: auto;
     border-bottom: 4px double;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stu-grades{
+    width: 48%;
+}
+
+.stu-schedule{
+    width: 48%;
 }
 
 .section-table table,
@@ -140,9 +152,9 @@ body{
 
 .score-table{
     width: 100%;
-    height: 45%;
+    height: 58%;
     overflow: auto;
-    margin-top: 5%;
+    margin-top: 2%;
     border-bottom: 4px double;
     border-top: 1px solid;
 }
