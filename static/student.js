@@ -12,16 +12,17 @@ $('.schetab-cell').click(function(e){
     alert(id)
 })
 
-let address = 'http://www.wayne-lee.cn:3012/'
+let address = 'http://www.wayne-lee.cn:3012'
+
+let user = {}
 
 $(document).ready(()=>{
-    // let token = JSON.parse(localStorage.getItem('token'))
-    // if(!token){
-    //     alert('请先登录!')
-    //     location.href('/index.html')
-    // }
-    // let user = JSON.parse(localStorage.getItem('userinfo'))
-
+    let token = JSON.parse(localStorage.getItem('token'))
+    if(!token){
+        alert('请先登录!')
+        location.href('/index.html')
+    }
+    console.log(token)
 
     // $('.userinfo').empty()
     // $('.userinfo').html(
@@ -31,6 +32,8 @@ $(document).ready(()=>{
     // $('.phone input').val(user.phone)
     // $('.email input').val(user.email)
 
+    // profile
+    setProfile()
     // //选课列表
     // reloadTakable()
     // //分数
@@ -75,12 +78,36 @@ $('.profile-submit').on('click',function(){
                 location.reload()
             }
         }
-    })
+    })  
+
 })
 
 $('.cross').click(hideShadow)
 $('.search-submit').click(reloadTakable)
 
+
+function setProfile(){
+    $.ajax({
+        url:`${address}/profile`,
+        type:'get',
+        headers:{
+            // 'token':JSON.parse(localStorage.getItem('token')),
+            'token':'student',
+        },
+        success:function(res){
+            console.log(res)
+            user = res.data
+            $('.userinfo ul').empty()
+            $('.userinfo ul').append($(`
+                <li class="userinfo-item">ID &nbsp;&nbsp;<b>${user.id}</b></li>
+                <li class="userinfo-item">Name &nbsp;&nbsp;<b>${user.name}</b></li>
+                <li class="userinfo-item">BirthDay&nbsp;&nbsp;<b>${user.birthday}</b></li>
+                <li class="userinfo-item">Graduation&nbsp;&nbsp;<b>${user.dept}</b></li>
+                <li class="userinfo-item">SSN&nbsp;&nbsp;<b>${user.ssn}</b></li>
+            `))
+        }
+    })
+}
 
 let historyTakes = []
 function loadSchedule(){
