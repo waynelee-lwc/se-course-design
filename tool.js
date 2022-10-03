@@ -31,13 +31,21 @@ function get_role_info(role) {
 
 function token_analysis(token) {
 	let data = token_list[token]
+	if (data == undefined) {
+		return "failed"
+	}
 	let tmp = get_role_info(data.role)
 	let kid = tmp[1]
 	return [data.id, data.role, data.name, kid]
 }
 
+function new_id(id) {
+	return "CS2119" + id.toString().padStart(4, '0') 
+}
+
 module.exports = {
 	"token_list": token_list,
 	"get_role_info": get_role_info,
-	"token_analysis": token_analysis
+	"token_analysis": token_analysis,
+	"new_id": new_id
 }
