@@ -13,6 +13,11 @@ token_list = {
 		"id": 0,
 		"role":"registrar",
 		"name":"registrar"
+	},
+	"I0JRXQ82Cn3py612": {
+		"id": 2,
+		"role": "student",
+		"name": "stu1"
 	}
 }
 
