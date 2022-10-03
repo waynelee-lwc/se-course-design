@@ -78,7 +78,7 @@ $('.profile-submit').on('click',function(){
     })
 })
 
-$('.search-submit').click(loadSectionList)
+$('.search-submit').click(studentList)
 $('.create-course-submit').click(createCourse)
 $('.cross').click(hideShadow)
 $('.stu-add-submit').click(addStudent)
@@ -222,6 +222,9 @@ function addStudent(){
     let ssn = $('.student-add .stu-ssn input').val()
     
     // console.log(name,birthday,graduation,ssn)
+    if(!confirm(`confirm to add student: ${name}?`)){
+        return
+    }
 
     $.ajax({
         url:`${address}/addStudent`,
@@ -237,7 +240,12 @@ function addStudent(){
             status:0,
         },
         success:(res)=>{
-            console.log(res)
+            if(res.code != 200){
+                alert("failed!",res.message)
+                return
+            }
+            alert("successfully!")
+            studentList()
         }
     })
 }
