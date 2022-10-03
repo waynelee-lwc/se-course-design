@@ -94,6 +94,8 @@ body{
     margin: auto;
     height: 92%;
     margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .search-bar,
@@ -131,7 +133,7 @@ body{
 
 .section-table{
     width: 100%;
-    height: 40%;
+    height: 75%;
     overflow: auto;
     border-bottom: 4px double;
 }
@@ -143,7 +145,7 @@ body{
 
 .course-table{
     width: 100%;
-    height: 40%;
+    height: 75%;
     overflow: auto;
     border-bottom: 4px double;
     border-top: 1px solid;
@@ -152,7 +154,8 @@ body{
 .section-table .title,
 .course-table .title,
 .search-bar .title,
-.create-course .title{
+.create-course .title,
+.student-add .title{
     font-size: 1.25rem;
     color: gray;
     text-align: center;
@@ -177,4 +180,20 @@ body{
     flex-direction: column;
     align-items: center;
     font-size: 1.25rem;
+}
+
+.student{
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+}
+
+.professor{
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+}
+
+.student-add{
+    height: 10%;
 }

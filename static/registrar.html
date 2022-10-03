@@ -145,94 +145,132 @@
             </div>
             <div class="dashboard col-lg-10">
                 <div class="dashboard-wrapper">
-                    <div class="search-bar">
-                        <div class="title">Student Maintaining</div>
-                        <div class="search-bar-wrapper">
-                            <div class="form-group sec_id search-item">
-                                <input type="text" class="form-control" placeholder="ID">
+                    <div class="student">
+                        <div class="search-bar">
+                            <div class="title">Student Maintaining</div>
+                            <div class="search-bar-wrapper">
+                                <div class="form-group sec_id search-item">
+                                    <input type="text" class="form-control" placeholder="ID">
+                                </div>
+                                <div class="form-group course_name search-item">
+                                    <input type="text" class="form-control" placeholder="Name">
+                                </div>
+                                <button class="btn btn-primary search-submit">Search</button>
                             </div>
-                            <div class="form-group course_name search-item">
-                                <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="student-add">
+                            <div class="search-bar-wrapper">
+                                <div class="form-group sec_id search-item">
+                                    <input type="text" class="form-control" placeholder="name">
+                                </div>
+                                <div class="form-group sec_id search-item">
+                                    <input type="date" class="form-control" placeholder="Birthday">
+                                </div>
+                                <div class="form-group sec_id search-item">
+                                    <input type="date" class="form-control" placeholder="Graduation">
+                                </div>
+                                <div class="form-group sec_id search-item">
+                                    <input type="text" class="form-control" placeholder="SSN">
+                                </div>
+                                <button class="btn btn-primary search-submit">Add</button>
                             </div>
-                            <button class="btn btn-primary search-submit">Search</button>
+                        </div>
+                        <div class="section-table">
+                            <!-- <div class="title">Student Maintaining</div> -->
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Birthday</th>
+                                    <th>Graduation</th>
+                                    <th>SSN</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td>100000001</td>
+                                        <td>200000002</td>
+                                        <td>数据库课程设计</td>
+                                        <td>必修课</td>
+                                        <td>软件学院</td>
+                                        <td>2</td>
+                                        <td>2022年秋季</td>
+                                        <td><button class="btn btn-primary">修改</button></td>
+                                        <td>
+                                            <select class="table-status"  name="status">
+                                                <option value="0">未开始</option>
+                                                <option value="1">进行中</option>
+                                            </select>
+                                        </td>
+                                        <td><button>修改状态</button></td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="section-table">
-                        <!-- <div class="title">Student Maintaining</div> -->
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Birthday</th>
-                                <th>Graduation</th>
-                                <th>SSN</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <td>100000001</td>
-                                    <td>200000002</td>
-                                    <td>数据库课程设计</td>
-                                    <td>必修课</td>
-                                    <td>软件学院</td>
-                                    <td>2</td>
-                                    <td>2022年秋季</td>
-                                    <td><button class="btn btn-primary">修改</button></td>
-                                    <td>
-                                        <select class="table-status"  name="status">
-                                            <option value="0">未开始</option>
-                                            <option value="1">进行中</option>
-                                        </select>
-                                    </td>
-                                    <td><button>修改状态</button></td>
-                                </tr> -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="create-course">
-                        <div class="title">Professor Maintaining</div>
-                        <div class="create-course-wrapper">
-                            <div class="form-group create_course_id search-item">
-                                <input type="text" class="form-control" placeholder="ID">
-                            </div>
-                            <div class="form-group create_course_name search-item">
-                                <input type="text" class="form-control" placeholder="Name">
+                    <div class="professor">
+                        <div class="create-course">
+                            <div class="title">Professor Maintaining</div>
+                            <div class="create-course-wrapper">
+                                <div class="form-group create_course_id search-item">
+                                    <input type="text" class="form-control" placeholder="ID">
+                                </div>
+                                <div class="form-group create_course_name search-item">
+                                    <input type="text" class="form-control" placeholder="Name">
+                                </div>
+
+                                <button class="btn btn-primary create-course-submit">Search</button>
                             </div>
 
-                            <button class="btn btn-primary create-course-submit">Search</button>
                         </div>
+                        <div class="student-add">
+                            <div class="search-bar-wrapper">
+                                <div class="form-group sec_id search-item">
+                                    <input type="text" class="form-control" placeholder="name">
+                                </div>
+                                <div class="form-group sec_id search-item">
+                                    <input type="date" class="form-control" placeholder="Birthday">
+                                </div>
+                                <div class="form-group sec_id search-item">
+                                    <input type="text" class="form-control" placeholder="Dept">
+                                </div>
+                                <div class="form-group sec_id search-item">
+                                    <input type="text" class="form-control" placeholder="SSN">
+                                </div>
+                                <button class="btn btn-primary search-submit">Add</button>
+                            </div>
+                        </div>
+                        <div class="course-table">
+                            <!-- <div class="title">开课管理</div> -->
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Birthday</th>
+                                    <th>Dept.</th>
+                                    <th>SSN</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>AI000001</td>
+                                    <td>Jackson Peter</td>
+                                    <td>1980.10.10</td>
+                                    <td>AI</td>
+                                    <td>123456789</td>
+                                    <td>Available</td>
+                                    <td><button class="btn btn-primary">开设课程</button></td>
 
-                    </div>
-                    <div class="course-table">
-                        <!-- <div class="title">开课管理</div> -->
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Birthday</th>
-                                <th>Dept.</th>
-                                <th>SSN</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>AI000001</td>
-                                <td>Jackson Peter</td>
-                                <td>1980.10.10</td>
-                                <td>AI</td>
-                                <td>123456789</td>
-                                <td>Available</td>
-                                <td><button class="btn btn-primary">开设课程</button></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
