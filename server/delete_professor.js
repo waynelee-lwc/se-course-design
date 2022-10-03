@@ -1,7 +1,7 @@
 var mysql = require('mysql')
 var query = require('../db.js')
 var tool = require('../tool.js')
-async function delete_student(req,res) {
+async function deleteProfessor(req,res) {
     var data = req.body
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
@@ -21,14 +21,10 @@ async function delete_student(req,res) {
         return
     }
     
-    var sql = mysql.format("delete from student where sid = ?",
-        [tool.old_stu_id(data.id)])
-
+    var sql = mysql.format("delete from professor where pid = ?",
+        [tool.old_pro_id(data.id)])
 
     var result = await query(sql)
-    // console.log(sql)
-    // console.log(result)
-
     if (result.status == 0) {
         res.send({
             "message": result.msg,
@@ -45,4 +41,4 @@ async function delete_student(req,res) {
     res.end()
     return 
 }
-module.exports = delete_student
+module.exports = deleteProfessor
