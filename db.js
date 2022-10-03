@@ -14,7 +14,6 @@ async function query(sql, values) {
 	    	} else {
  	    	 	connection.query(sql, values, (err, rows) => {
 	        	if (err) {
-	        		console.log(err)
 	        	  	resolve({status: 0, msg: err.sqlMessage})	        	
 	        	  } else {
 	        	  	resolve(rows)

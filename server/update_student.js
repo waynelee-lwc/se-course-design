@@ -1,9 +1,7 @@
 var mysql = require('mysql')
 var query = require('../db.js')
 var tool = require('../tool.js')
-const random_string = require('string-random')
-
-async function addProfessor(req,res){
+async function update_student(req,res) {
     var data = req.body
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
@@ -23,8 +21,9 @@ async function addProfessor(req,res){
         return
     }
     
-    
-    var sql = mysql.format("insert into professor(name, dept, birthday, status, ssn, password) values (?,?,?,?,?,?)",[data.name, data.dept, data.birthday, data.status, data.ssn, "123456"])
+    var sql = mysql.format("update table set name = ?, dept = ?, birthday = ?, status = ?, ssn = ?",
+        [data.name, data.graduation_date, data.birthday, data.status, data.ssn])
+
     var result = await query(sql)
     console.log(result)
 
@@ -37,11 +36,11 @@ async function addProfessor(req,res){
     }
 
     res.send({
-        "message": "插入成功",
-        "code": 200
+        "message": "修改成功",
+        "code":200
     })
+
     res.end()
     return 
 }
-
-module.exports = addProfessor
+module.exports = update_student

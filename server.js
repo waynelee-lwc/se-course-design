@@ -35,6 +35,25 @@ app.post('/addStudent', addStudent)
 addProfessor = require('./server/add_professor.js')
 app.post('/addProfessor', addProfessor)
 
+updateStudent = require('./server/update_student.js')
+app.post('/updateStudent', updateStudent)
+
+// updateProfessor = require('./server/update_professor.js')
+// app.post('/updateProfessor', updateProfessor)
+
+// deleteStudent = require('./server/delete_student.js')
+// app.post('/deleteStudent', deleteStudent)
+
+// deleteProfessor = require('./server/delete_professor.js')
+// app.post('/deleteProfessor', deleteProfessor)
+
+getStudents = require('./server/get_students.js')
+app.get('/studentList', getStudents)
+
+// getProfessors = require('./server/get_professors.js')
+// app.get('/professorList', getProfessors)
+
+
 let server = app.listen(3012,()=>{
     console.log('The server is listening on port : 3012')
 })

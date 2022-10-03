@@ -18,13 +18,13 @@ token_list = {
 
 function get_role_info(role) {
 	if (role == 2 || role == "student") {
-		return ["student", "SID"]
+		return ["student", "sid"]
 	}
 	if (role == 1 || role == "professor") {
-		return ["professor", "PID"]
+		return ["professor", "pid"]
 	}
 	if (role == 0 || role == "registrar") {
-		return ["registrar", "RID"]
+		return ["registrar", "rid"]
 	}
 	return [null, null]
 }
