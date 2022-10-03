@@ -40,7 +40,7 @@ function token_analysis(token) {
 }
 
 function new_stu_id(id) {
-	return "CS2119" + id.toString().padStart(4, '0') 
+	return "CS" + id.toString().padStart(8, '0') 
 }
 
 function new_pro_id(dept, id) {
@@ -49,8 +49,10 @@ function new_pro_id(dept, id) {
 
 function old_stu_id(id) {
 	let len = id.length
-	return Number(id.substring(len-4, len)) 
+	return Number(id.substring(2, len)) 
 }
+
+// console.log(old_stu_id("CS21191511"))
 
 function old_pro_id(id) {
 	let len = id.length
