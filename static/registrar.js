@@ -3,36 +3,39 @@ window.onresize = function(){
     // console.log("当前尺寸为：" + window.innerWidth);
     document.getElementsByTagName('html')[0].style.fontSize = (16/1920) * window.innerWidth + "px";
 }
-let address = 'http://43.138.86.233:3011'
+let address = 'http://www.wayne-lee.cn:3012'
 
 $(document).ready(()=>{
 
     let token = JSON.parse(localStorage.getItem('token'))
     if(!token){
-        alert('请先登录!')
+        alert('Please login!')
         location.href('/index.html')
     }
-    
-    let user = JSON.parse(localStorage.getItem('userinfo'))
-    let data={
-        status:'0'
-    }
+ 
+    // 校验权限
+    checkProfile()
 
-    $('.table-status').val(data["status"])
+    // let user = JSON.parse(localStorage.getItem('userinfo'))
+    // let data={
+    //     status:'0'
+    // }
 
-    $('.userinfo').empty()
-    $('.userinfo').html(
-        `管理员<br><b>${user.name}</b><br>您好`
-    )
+    // $('.table-status').val(data["status"])
 
-    $('.phone input').val(user.phone)
-    $('.email input').val(user.email)
+    // $('.userinfo').empty()
+    // $('.userinfo').html(
+    //     `管理员<br><b>${user.name}</b><br>您好`
+    // )
 
-    loadSectionList()
-    //学期列表
-    loadSemesters()
-    //课程列表
-    loadCourseList()
+    // $('.phone input').val(user.phone)
+    // $('.email input').val(user.email)
+
+    // loadSectionList()
+    // //学期列表
+    // loadSemesters()
+    // //课程列表
+    // loadCourseList()
 })
 
 $('.profile-submit').on('click',function(){
@@ -76,6 +79,22 @@ $('.search-submit').click(loadSectionList)
 $('.create-course-submit').click(createCourse)
 $('.cross').click(hideShadow)
 
+
+function checkProfile(){
+    $.ajax({
+        url:`${address}/profile`,
+        type:'get',
+        headers:{
+            'token':'registrar',
+        },
+        success:function(res){
+            if(res.code != 200){
+                alert('please login!')
+                location.href = '/index.html'
+            }
+        }
+    })
+}
 
 function hideShadow(){
     $('.shadow').hide()
