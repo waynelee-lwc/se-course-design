@@ -50,8 +50,8 @@ app.post('/updateStudent', updateStudent)
 getStudents = require('./server/get_students.js')
 app.get('/studentList', getStudents)
 
-// getProfessors = require('./server/get_professors.js')
-// app.get('/professorList', getProfessors)
+getProfessors = require('./server/get_professors.js')
+app.get('/professorList', getProfessors)
 
 
 let server = app.listen(3012,()=>{
