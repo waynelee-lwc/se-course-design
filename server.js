@@ -56,8 +56,8 @@ app.get('/professorList', getProfessors)
 addSchedule = require('./server/add_schedule.js')
 app.post('/addSchedule', addSchedule)
 
-// getSchedule = require('./server/get_schedule.js')
-// app.get('/getSchedule', getSchedule)
+getSchedule = require('./server/get_schedule.js')
+app.get('/getSchedule', getSchedule)
 
 // saveSchedule = require('./server/save_schedule.js')
 // app.post('/saveSchedule', saveSchedule)

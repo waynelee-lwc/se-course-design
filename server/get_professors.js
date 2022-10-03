@@ -40,7 +40,7 @@ async function getProfessors(req,res){
         return
     }
 
-    result = JSON.parse(JSON.stringify(result)); 
+    result = JSON.parse(JSON.stringify(result))
     for (x in result) {
         result[x].id = tool.new_pro_id(result[x].dept, result[x].pid)
     }
