@@ -126,84 +126,49 @@
 
                 </div>
                 <div class="userinfo">
-                    欢迎&nbsp;<b>体育</b>&nbsp;学院的&nbsp;<b>郑智</b>&nbsp;老师
+                    Welcome! Registrar
                 </div>
 
                 <div class="profile">
                     <div class="profile-wrapper">
-                        <div class="profile-title">个人信息</div>
-
-                        <div class="form-group phone profile-item">
-                            <label for="name">电话号码</label>
-                            <input type="text" class="form-control" placeholder="请输入您的电话号码">
-                        </div>
-                        <div class="form-group email profile-item">
-                            <label for="name">电子邮件</label>
-                            <input type="text" class="form-control" placeholder="请输入您的电子邮件">
-                        </div>
-                        <div class="form-group password profile-item">
-                            <label for="name">修改密码</label>
-                            <input type="password" class="form-control" placeholder="若需修改请填写">
-                        </div>
-                        <div class="form-group passwordrpt profile-item">
-                            <label for="name">重复密码</label>
-                            <input type="password" class="form-control" placeholder="请重复输入密码">
-                        </div>
-                        <button class="btn btn-primary profile-submit">提交修改</button>
+                        <div class="profile-title">Registration Configuration</div>
+                        <ul>
+                            <li class="registration-info">Registration : <br> <b>2022 Fall For All Grades</b></li>
+                            <li class="registration-info">Registering : <b>Yes</b></li>
+                            <li class="registration-info">Begin-time : <b>2022-10-01</b></li>
+                            <li class="registration-info">End-time : <b>2022-10-03</b></li>
+                        </ul>
+                        <button class="btn btn-primary open-register">Open Registration</button>
+                        <button class="btn btn-danger close-register">Close Registration</button>
                     </div>
                 </div>
             </div>
             <div class="dashboard col-lg-10">
                 <div class="dashboard-wrapper">
                     <div class="search-bar">
-                        <div class="title">课程信息筛选</div>
+                        <div class="title">Student Maintaining</div>
                         <div class="search-bar-wrapper">
                             <div class="form-group sec_id search-item">
-                                <input type="text" class="form-control" placeholder="开课编号">
+                                <input type="text" class="form-control" placeholder="ID">
                             </div>
                             <div class="form-group course_name search-item">
-                                <input type="text" class="form-control" placeholder="课程名称">
+                                <input type="text" class="form-control" placeholder="Name">
                             </div>
-                            <div class="form-group dept_name search-item">
-                                <input type="text" class="form-control" placeholder="开课学院">
-                            </div>
-                            <div class="form-group status search-item">
-                                <select class="form-select" id="status_select" name="status">
-                                    <option value="-1" selected>全部课程</option>
-                                    <option value="0">不可见</option>
-                                    <option value="1">绑定授课</option>
-                                    <option value="2">学生选课</option>
-                                    <option value="3">授课中</option>
-                                    <option value="4">登录成绩</option>
-                                    <option value="5">课程结束</option>
-                                </select>
-                            </div>
-                            <div class="form-group semester search-item">
-                                <select class="form-select" id="status_select" name="status">
-                                    <option value="-" selected>开课学期</option>
-                                    <!-- <option value="2022-Fall">2022 Fall</option> -->
-                                </select>
-                            </div>
-
-                            <button class="btn btn-primary search-submit">搜索</button>
+                            <button class="btn btn-primary search-submit">Search</button>
                         </div>
-
                     </div>
                     <div class="section-table">
-                        <div class="title">课程管理</div>
+                        <!-- <div class="title">Student Maintaining</div> -->
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>课程编号</th>
-                                <th>开课编号</th>
-                                <th>课程名称</th>
-                                <th>课程类型</th>
-                                <th>开课学院</th>
-                                <th>学分</th>
-                                <th>开课学期</th>
-                                <th>开课计划</th>
-                                <th>当前状态</th>
-                                <th>修改状态</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Birthday</th>
+                                <th>Graduation</th>
+                                <th>SSN</th>
+                                <th>Status</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -228,60 +193,16 @@
                         </table>
                     </div>
                     <div class="create-course">
-                        <div class="title">增加课程</div>
+                        <div class="title">Professor Maintaining</div>
                         <div class="create-course-wrapper">
                             <div class="form-group create_course_id search-item">
-                                <input type="text" class="form-control" placeholder="课程编号">
+                                <input type="text" class="form-control" placeholder="ID">
                             </div>
                             <div class="form-group create_course_name search-item">
-                                <input type="text" class="form-control" placeholder="课程名称">
-                            </div>
-                            <div class="form-group create_course_type search-item">
-                                <select>
-                                    <option value="" selected disabled>课程类型</option>
-                                    <option value="必修课">必修课</option>
-                                    <option value="选修课">选修课</option>
-                                    <option value="公选课">公选课</option>
-                                    <option value="必选课">必选课</option>
-                                </select>
-                            </div>
-                            <div class="form-group create_dept_name search-item">
-                                <select>
-                                    <option value="" selected disabled>开课学院</option>
-                                    <option value="外国语">外国语</option>
-                                    <option value="物理">物理</option>
-                                    <option value="生物">生物</option>
-                                    <option value="电子">电子</option>
-                                    <option value="经管">经管</option>
-                                    <option value="艺术">艺术</option>
-                                    <option value="计算机">计算机</option>
-                                    <option value="软件">软件</option>
-                                    <option value="马克思">马克思</option>
-                                </select>
-                            </div>
-                            <div class="form-group create_credits search-item">
-                                <select>
-                                    <option value="0" selected disabled>学分</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                </select>
+                                <input type="text" class="form-control" placeholder="Name">
                             </div>
 
-                            <button class="btn btn-primary create-course-submit">创建</button>
+                            <button class="btn btn-primary create-course-submit">Search</button>
                         </div>
 
                     </div>
@@ -290,21 +211,23 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>课程编号</th>
-                                <th>课程名称</th>
-                                <th>课程类型</th>
-                                <th>开课学院</th>
-                                <th>学分</th>
-                                <th>开设课程</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Birthday</th>
+                                <th>Dept.</th>
+                                <th>SSN</th>
+                                <th>Status</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>100000001</td>
-                                <td>数据库课程设计</td>
-                                <td>必修课</td>
-                                <td>计算机科学与技术</td>
-                                <td>2</td>
+                                <td>AI000001</td>
+                                <td>Jackson Peter</td>
+                                <td>1980.10.10</td>
+                                <td>AI</td>
+                                <td>123456789</td>
+                                <td>Available</td>
                                 <td><button class="btn btn-primary">开设课程</button></td>
 
                             </tr>
