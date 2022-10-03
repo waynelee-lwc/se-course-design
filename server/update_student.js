@@ -21,11 +21,13 @@ async function update_student(req,res) {
         return
     }
     
-    var sql = mysql.format("update table set name = ?, dept = ?, birthday = ?, status = ?, ssn = ?",
-        [data.name, data.graduation_date, data.birthday, data.status, data.ssn])
+    var sql = mysql.format("update student set name = ?, dept = ?, birthday = ?, status = ?, ssn = ? where sid = ?",
+        [data.name, data.graduation_date, data.birthday, data.status, data.ssn, tool.old_stu_id(data.id)])
+
 
     var result = await query(sql)
-    console.log(result)
+    // console.log(sql)
+    // console.log(result)
 
     if (result.status == 0) {
         res.send({

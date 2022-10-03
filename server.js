@@ -38,8 +38,8 @@ app.post('/addProfessor', addProfessor)
 updateStudent = require('./server/update_student.js')
 app.post('/updateStudent', updateStudent)
 
-// updateProfessor = require('./server/update_professor.js')
-// app.post('/updateProfessor', updateProfessor)
+updateProfessor = require('./server/update_professor.js')
+app.post('/updateProfessor', updateProfessor)
 
 // deleteStudent = require('./server/delete_student.js')
 // app.post('/deleteStudent', deleteStudent)
