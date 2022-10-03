@@ -95,7 +95,7 @@ body{
     width: 95%;
     margin: auto;
     height: 92%;
-    margin-top: 3%;
+    margin-top: 2%;
 }
 
 .search-bar{
@@ -176,4 +176,41 @@ body{
     text-align: left;
     font-size: 1.25rem;
     margin-top: 0.75rem;
+}
+
+.stu-schedule .operation{
+    display: flex;
+    justify-content: space-around;
+    margin: 0.5rem 0rem;
+}
+
+.stu-schedule .operation button{
+    width: 30%;
+}
+
+.stu-schedule table{
+    height: 70%;
+    overflow: auto;
+    display: block;
+}
+
+.stu-create-schedule{
+    width: 48%;
+    background: #0000001c;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.stu-create-schedule button{
+    height: 4rem;
+    width: 16rem;
+    font-size: 1.25rem;
+}
+
+.stu-create-schedule h2{
+    width: 80%;
+    text-align: center;
+    
 }

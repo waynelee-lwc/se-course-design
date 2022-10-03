@@ -22,7 +22,6 @@ $(document).ready(()=>{
         alert('请先登录!')
         location.href('/index.html')
     }
-    console.log(token)
 
     // $('.userinfo').empty()
     // $('.userinfo').html(
@@ -34,6 +33,10 @@ $(document).ready(()=>{
 
     // profile
     setProfile()
+
+    // 更新schedule
+    getSchedule()
+
     // //选课列表
     // reloadTakable()
     // //分数
@@ -45,46 +48,30 @@ $(document).ready(()=>{
     
 })
 
-$('.profile-submit').on('click',function(){
-
-    let user = JSON.parse(localStorage.getItem('userinfo'))
-    let phone = $('.phone input').val()
-    let email = $('.email input').val()
-    let password = $('.password input').val()
-    let passwordrpt = $('.passwordrpt input').val()
-
-    if(password != passwordrpt){
-        alert('两次密码不一致!')
-        return
-    }
-    // alert('id ' + id + '\nphone ' + phone + '\nemail ' + email + '\npassword ' + password + '\npasswordrpt ' + passwordrpt) 
-    $.ajax({
-        url:`${address}/user/update_profile`,
-        headers:{
-            token:JSON.parse(localStorage.getItem('token'))
-        },
-        type:'post',
-        data:{
-            phone:phone,
-            email:email,
-            password:password
-        },
-        success:function(res){
-            if(res.code != 200){
-                alert(res.message)
-            }else{
-                localStorage.setItem('userinfo',JSON.stringify(res.data.user))
-                alert('修改成功!')
-                location.reload()
-            }
-        }
-    })  
-
-})
 
 $('.cross').click(hideShadow)
 $('.search-submit').click(reloadTakable)
 
+function getSchedule(){
+    $('.stu-schedule').hide()
+    $('.stu-create-schedule').hide()
+
+    $.ajax({
+        url:`${address}/getSchedule`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            console.log(res)
+            if(res.code == 200){
+
+            }else{
+                $('.stu-create-schedule').show()
+            }
+        }
+    })
+}
 
 function setProfile(){
     $.ajax({
