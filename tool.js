@@ -44,7 +44,7 @@ function new_stu_id(id) {
 }
 
 function new_pro_id(dept, id) {
-	return dept + id.toString().padStart(4, '0')
+	return dept + id.toString().padStart(8, '0')
 }
 
 function old_stu_id(id) {
@@ -56,7 +56,7 @@ function old_stu_id(id) {
 
 function old_pro_id(id) {
 	let len = id.length
-	return Number(id.substring(len-4, len)) 	
+	return Number(id.substring(len-8, len)) 	
 }
 
 module.exports = {
