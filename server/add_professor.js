@@ -15,31 +15,32 @@ async function addProfessor(req,res){
         return
     }
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    var sql = mysql.format('select * from ' +  role + ' where ' + kid + ' = ?', id)
-    var result = await query(sql)
-    if(result.length == 0) {
-    	res.send({
-			"message": "用户不存在",
-    		"code": 400	
-    	})
-        return 
+    if (role != "registrar") {
+        res.send({
+            "message": "您没有管理权限",
+            "code": 400 
+        })
+        return
     }
     
-    result = result[0]
+    
+    var sql = mysql.format("insert into professor(name, dept, birthday, status, ssn, password) values (?,?,?,?,?,?)",[data.name, data.graduation_date, data.birthday, data.status, data.ssn, "123456"])
+    var result = await query(sql)
+    console.log(result)
+
+    if (result.status == 0) {
+        res.send({
+            "message": result.msg,
+            "code": 400 
+        })
+        return
+    }
+
     res.send({
-    	"message": "获取成功",
-    	"code": 200,
-    	"data": {
-            "name": result.name,
-            "id": tool.new_stu_id(id),
-            "role": role,
-            "dept": result.dept,
-            "birthday": result.birthday,
-            "status": result.status,
-            "ssn": result.ssn
-    	}
+        "message": "插入成功",
+        "code": 200
     })
-   	res.end()
+    res.end()
     return 
 }
 
