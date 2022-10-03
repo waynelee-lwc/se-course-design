@@ -16,6 +16,9 @@ $(document).ready(()=>{
     // 校验权限
     checkProfile()
 
+    //学生列表
+    studentList()
+
     // let user = JSON.parse(localStorage.getItem('userinfo'))
     // let data={
     //     status:'0'
@@ -80,6 +83,137 @@ $('.create-course-submit').click(createCourse)
 $('.cross').click(hideShadow)
 $('.stu-add-submit').click(addStudent)
 $('.pro-add-submit').click(addProfessor)
+
+function studentList(){
+    let name = $('.search-bar-wrapper .stu_name input').val()
+    let data = {
+        name:name,
+    }
+    let id = $('.search-bar-wrapper .stu_id input').val()
+    if(id != ''){
+        data.id = id
+    }
+
+    $.ajax({
+        url:`${address}/studentList`,
+        type:'get',
+        headers:{
+            'token':'registrar',
+        },
+        data:data,
+        success:(res)=>{
+            console.log(res)
+            let list =  res.data
+
+            $('.section-table tbody').empty()
+
+            for(let stu of list){
+                // $('.section-table tbody').append($(`
+                //     <tr>
+                //         <th class="col-lg-2">${stu.sid}</td>
+                //         <th class="col-lg-2">${stu.name}</td>
+                //         <th class="col-lg-1">${stu.birthday}</td>
+                //         <th class="col-lg-1">${stu.graduation_date}</td>
+                //         <th class="col-lg-1">${stu.ssn}</td>
+                //         <th class="col-lg-1">Available</td>
+                //         <th class="col-lg-2">
+                //             <button id="" class="btn btn-warning">udpate</button>
+                //         </td>
+                //         <th class="col-lg-2">
+                //             <button id="" class="btn btn-danger">delete</button>
+                //         </td>
+                //     </tr>
+                // `))
+
+                $('.section-table tbody').append($(`
+                    <tr>
+                        <td>${stu.id}</td>     
+                        <td><input id="stu-info-name-${stu.id}" class="stu-info" value="${stu.name}"></td>
+                        <td><input id="stu-info-birthday-${stu.id}" class="stu-info" value="${stu.birthday}" type="date"></td>
+                        <td><input id="stu-info-graduation-${stu.id}" class="stu-info" value="${stu.graduation_date}" type="date"></td>
+                        <td><input id="stu-info-ssn-${stu.id}" class="stu-info" value="${stu.ssn}"></td>
+                        <td>Available</td>
+                        <td>
+                            <button id="stu-update-${stu.id}" class="btn btn-warning stu-manu stu-update-button">upd</button>
+
+                            <button id="stu-delete-${stu.id}" class="btn btn-danger stu-manu stu-delete-button">del</button>
+                        </td>
+                    </tr>
+                `))
+            }
+
+            $('.stu-update-button').click(updateStudent)
+            $('.stu-delete-button').click(deleteStudent)
+        }
+    })
+}
+
+function updateStudent(){
+    // console.log(this)
+    let id = $(this).attr('id').split('-')[2]
+
+    let name = $(`#stu-info-name-${id}`).val()
+    let birthday = $(`#stu-info-birthday-${id}`).val()
+    let graduation = $(`#stu-info-graduation-${id}`).val()
+    let ssn = $(`#stu-info-ssn-${id}`).val()
+
+    if(!confirm(`Are you sure to update student ${id} ${name}?`)){
+        return
+    }
+
+    $.ajax({
+        url:`${address}/updateStudent`,
+        type:'post',
+        headers:{
+            'token':'registrar',
+        },
+        data:{
+            id:id,
+            name:name,
+            birthday:birthday,
+            graduation_date:graduation,
+            ssn:ssn,
+            status:0,
+        },
+        success:(res)=>{
+            if(res.code != 200){
+                alert(`update failed! ${res.message}`)
+                return
+            }
+            alert('successfully!')
+            studentList()
+        }
+    })
+}
+
+function deleteStudent(){
+    let id = $(this).attr('id').split('-')[2]
+
+    let name = $(`#stu-info-name-${id}`).val()
+
+    if(!confirm(`Are you sure to delete student ${id} ${name}?`)){
+        return
+    }
+
+    $.ajax({
+        url:`${address}/deleteStudent`,
+        type:'post',
+        headers:{
+            'token':'registrar',
+        },
+        data:{
+            id:id,
+        },
+        success:(res)=>{
+            if(res.code != 200){
+                alert(`delete failed! ${res.message}`)
+                return
+            }
+            alert('successfully!')
+            studentList()
+        }
+    })
+}
 
 function addStudent(){
     let name = $('.student-add .stu-name input').val()

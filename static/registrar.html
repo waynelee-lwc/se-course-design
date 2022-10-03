@@ -149,10 +149,10 @@
                         <div class="search-bar">
                             <div class="title">Student Maintaining</div>
                             <div class="search-bar-wrapper">
-                                <div class="form-group sec_id search-item">
+                                <div class="form-group stu_id search-item">
                                     <input type="text" class="form-control" placeholder="ID">
                                 </div>
-                                <div class="form-group course_name search-item">
+                                <div class="form-group stu_name search-item">
                                     <input type="text" class="form-control" placeholder="Name">
                                 </div>
                                 <button class="btn btn-primary search-submit">Search</button>
@@ -177,19 +177,44 @@
                         </div>
                         <div class="section-table">
                             <!-- <div class="title">Student Maintaining</div> -->
-                            <table class="table table-striped">
+                            <table class="table table-striped container">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Birthday</th>
-                                    <th>Graduation</th>
-                                    <th>SSN</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
+                                    <!-- <tr>
+                                        <th class="col-lg-2">ID</th>
+                                        <th class="col-lg-2">Name</th>
+                                        <th class="col-lg-1">Birthday</th>
+                                        <th class="col-lg-1">Graduation</th>
+                                        <th class="col-lg-1">SSN</th>
+                                        <th class="col-lg-1">Status</th>
+                                        <th class="col-lg-2"></th>
+                                        <th class="col-lg-2"></th>
+                                    </tr> -->
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Birthday</th>
+                                        <th>Graduation</th>
+                                        <th>SSN</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                        <!-- <th></th> -->
+                                    </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>CS00000001</td>
+                                        <td>Jack Ma</td>
+                                        <td>2000-01-01</td>
+                                        <td>2023-06-30</td>
+                                        <td>SPJLU304J</td>
+                                        <td>Available</td>
+                                        <td>
+                                            <button id="" class="btn btn-warning">udpate</button>
+                                        </td>
+                                        <td>
+                                            <button id="" class="btn btn-danger">delete</button>
+                                        </td>
+                                    </tr>
                                     <!-- <tr>
                                         <td>100000001</td>
                                         <td>200000002</td>
