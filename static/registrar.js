@@ -19,6 +19,9 @@ $(document).ready(()=>{
     //学生列表
     studentList()
 
+    //教授列表
+    professorList()
+
     // let user = JSON.parse(localStorage.getItem('userinfo'))
     // let data={
     //     status:'0'
@@ -79,10 +82,160 @@ $('.profile-submit').on('click',function(){
 })
 
 $('.search-submit').click(studentList)
-$('.create-course-submit').click(createCourse)
+$('.create-course-submit').click(professorList)
 $('.cross').click(hideShadow)
 $('.stu-add-submit').click(addStudent)
 $('.pro-add-submit').click(addProfessor)
+
+function professorList(){
+    let name = $('.search-bar-wrapper .stu_name input').val()
+    let data = {
+        name:name,
+    }
+    let id = $('.search-bar-wrapper .stu_id input').val()
+    if(id != ''){
+        data.id = id
+    }
+
+    $.ajax({
+        url:`${address}/professorList`,
+        type:'get',
+        headers:{
+            'token':'registrar',
+        },
+        data:data,
+        success:(res)=>{
+            console.log(res)
+            let list =  res.data
+
+            $('.course-table tbody').empty()
+
+            for(let pro of list){
+                $('.course-table tbody').append($(`
+                    <tr>
+                        <td>${pro.id}</td>     
+                        <td><input id="pro-info-name-${pro.id}" class="pro-info" value="${pro.name}"></td>
+                        <td><input id="pro-info-birthday-${pro.id}" class="pro-info" value="${pro.birthday}" type="date"></td>
+                        <td><input id="pro-info-dept-${pro.id}" class="pro-info" value="${pro.dept}" type="text"></td>
+                        <td><input id="pro-info-ssn-${pro.id}" class="pro-info" value="${pro.ssn}"></td>
+                        <td>Available</td>
+                        <td>
+                            <button id="pro-update-${pro.id}" class="btn btn-warning pro-manu pro-update-button">upd</button>
+
+                            <button id="pro-delete-${pro.id}" class="btn btn-danger pro-manu pro-delete-button">del</button>
+                        </td>
+                    </tr>
+                `))
+            }
+
+            $('.pro-update-button').click(updateProfessor)
+            $('.pro-delete-button').click(deleteProfessor)
+        }
+    })
+}
+
+function updateProfessor(){
+    // console.log(this)
+    let id = $(this).attr('id').split('-')[2]
+
+    let name = $(`#pro-info-name-${id}`).val()
+    let birthday = $(`#pro-info-birthday-${id}`).val()
+    let dept = $(`#pro-info-dept-${id}`).val()
+    let ssn = $(`#pro-info-ssn-${id}`).val()
+
+    if(!confirm(`Are you sure to update professor ${id} ${name}?`)){
+        return
+    }
+
+    console.log(dept)
+
+    $.ajax({
+        url:`${address}/updateProfessor`,
+        type:'post',
+        headers:{
+            'token':'registrar',
+        },
+        data:{
+            id:id,
+            name:name,
+            birthday:birthday,
+            dept:dept,
+            ssn:ssn,
+            status:0,
+        },
+        success:(res)=>{
+            if(res.code != 200){
+                alert(`update failed! ${res.message}`)
+                return
+            }
+            alert('successfully!')
+            professorList()
+        }
+    })
+}
+
+function deleteProfessor(){
+    let id = $(this).attr('id').split('-')[2]
+
+    let name = $(`#pro-info-name-${id}`).val()
+
+    if(!confirm(`Are you sure to delete professor ${id} ${name}?`)){
+        return
+    }
+
+    $.ajax({
+        url:`${address}/deleteProfessor`,
+        type:'post',
+        headers:{
+            'token':'registrar',
+        },
+        data:{
+            id:id,
+        },
+        success:(res)=>{
+            if(res.code != 200){
+                alert(`delete failed! ${res.message}`)
+                return
+            }
+            alert('successfully!')
+            professorList()
+        }
+    })
+}
+
+function addProfessor(){
+    let name = $('.professor-add .pro-name input').val()
+    let birthday = $('.professor-add .pro-birthday input').val()
+    let dept = $('.professor-add .pro-dept input').val()
+    let ssn = $('.professor-add .pro-ssn input').val()
+    
+    if(!confirm(`confirm to add professor: ${name}?`)){
+        return
+    }
+
+    $.ajax({
+        url:`${address}/addProfessor`,
+        type:'post',
+        headers:{
+            'token':'registrar',
+        },
+        data:{
+            name:name,
+            birthday:birthday,
+            dept:dept,
+            ssn:ssn,
+            status:0,
+        },
+        success:(res)=>{
+            if(res.code != 200){
+                alert("failed!",res.message)
+                return
+            }
+            alert("successfully!")
+            professorList()
+        }
+    })
+}
 
 function studentList(){
     let name = $('.search-bar-wrapper .stu_name input').val()
@@ -250,7 +403,7 @@ function addStudent(){
     })
 }
 
-function addProfessor(){
+function addStudent(){
     let name = $('.student-add .pro-name input').val()
     let birthday = $('.student-add .pro-birthday input').val()
     let dept = $('.student-add .pro-dept input').val()
