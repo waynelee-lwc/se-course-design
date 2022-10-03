@@ -21,7 +21,7 @@ async function user_login(req,res){
 
 
     var sql = mysql.format('select * from ' +  table + ' where ' + 'name' + ' = ?', name)
-    console.log(sql)
+    // console.log(sql)
     var result = await query(sql)
     var resp = {
     	"message": "",
