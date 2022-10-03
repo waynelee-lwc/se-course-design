@@ -3,7 +3,7 @@ var query = require('../db.js')
 var tool = require('../tool.js')
 const random_string = require('string-random')
 
-async function addStudent(req,res){
+async function addSchedule(req,res){
     var data = req.body
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
@@ -15,18 +15,10 @@ async function addStudent(req,res){
         return
     }
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    if (role != "registrar") {
-        res.send({
-            "message": "您没有管理权限",
-            "code": 400 
-        })
-        return
-    }
     
-    
-    var sql = mysql.format("insert into student(name, dept, birthday, status, ssn, password) values (?,?,?,?,?,?)",[data.name, data.graduation_date, data.birthday, data.status, data.ssn, "123456"])
+    var sql = mysql.format("insert into schedule(sid, semester) values (?,?)",[id, 45])
     var result = await query(sql)
-    // console.log(result)
+    console.log(result)
 
     if (result.status == 0) {
         res.send({
@@ -40,8 +32,8 @@ async function addStudent(req,res){
         "message": "插入成功",
         "code":200
     })
-   	res.end()
+    res.end()
     return 
 }
 
-module.exports = addStudent
+module.exports = addSchedule

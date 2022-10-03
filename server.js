@@ -53,6 +53,18 @@ app.get('/studentList', getStudents)
 getProfessors = require('./server/get_professors.js')
 app.get('/professorList', getProfessors)
 
+addSchedule = require('./server/add_schedule.js')
+app.post('/addSchedule', addSchedule)
+
+// getSchedule = require('./server/get_schedule.js')
+// app.get('/getSchedule', getSchedule)
+
+// saveSchedule = require('./server/save_schedule.js')
+// app.post('/saveSchedule', saveSchedule)
+
+// submitSchedule = require('./server/submit_schedule.js')
+// app.post('/saveSchedule', submitSchedule)
+
 
 let server = app.listen(3012,()=>{
     console.log('The server is listening on port : 3012')
