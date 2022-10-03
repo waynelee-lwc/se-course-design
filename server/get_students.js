@@ -49,7 +49,7 @@ async function getStudents(req,res){
     res.send({
         "message": "查询成功",
         "code":200,
-        "studentList": result
+        "data": result
     })
    	res.end()
     return 
