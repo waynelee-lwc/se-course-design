@@ -3,7 +3,7 @@ var query = require('../db.js')
 var tool = require('../tool.js')
 const random_string = require('string-random')
 
-async function profile(req,res){
+async function addProfessor(req,res){
     var data = req.body
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
@@ -16,9 +16,7 @@ async function profile(req,res){
     }
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
     var sql = mysql.format('select * from ' +  role + ' where ' + kid + ' = ?', id)
-
     var result = await query(sql)
-    
     if(result.length == 0) {
     	res.send({
 			"message": "用户不存在",
@@ -28,20 +26,12 @@ async function profile(req,res){
     }
     
     result = result[0]
-
-    let nid = ""
-    if (role == "student")
-        nid = tool.new_stu_id(id)
-    
-    if (role == 'professor')
-        nid = tool.new_pro_id(result.dept, id)
-
     res.send({
     	"message": "获取成功",
     	"code": 200,
     	"data": {
             "name": result.name,
-            "id": nid,
+            "id": tool.new_stu_id(id),
             "role": role,
             "dept": result.dept,
             "birthday": result.birthday,
@@ -53,4 +43,4 @@ async function profile(req,res){
     return 
 }
 
-module.exports = profile
+module.exports = addProfessor

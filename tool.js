@@ -39,13 +39,18 @@ function token_analysis(token) {
 	return [data.id, data.role, data.name, kid]
 }
 
-function new_id(id) {
+function new_stu_id(id) {
 	return "CS2119" + id.toString().padStart(4, '0') 
+}
+
+function new_pro_id(dept, id) {
+	return dept + id.toString().padStart(4, '0')
 }
 
 module.exports = {
 	"token_list": token_list,
 	"get_role_info": get_role_info,
 	"token_analysis": token_analysis,
-	"new_id": new_id
+	"new_stu_id": new_stu_id,
+	"new_pro_id": new_pro_id,
 }

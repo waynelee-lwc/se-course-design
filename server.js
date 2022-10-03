@@ -29,6 +29,13 @@ app.post('/login', login)
 profile = require('./server/profile.js')
 app.get('/profile', profile)
 
+addStudent = require('./server/add_student.js')
+app.post('/addStudent', addStudent)
+
+addProfessor = require('./server/add_professor.js')
+app.post('/addProfessor', addProfessor)
+
+
 let server = app.listen(3012,()=>{
     console.log('The server is listening on port : 3012')
 })
