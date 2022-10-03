@@ -199,12 +199,25 @@ body{
 .student-add{
     height: 10%;
 }
+
+.professor-add{
+    height: 10%;
+}
 /* 
 .stu-manu{
     width: 3rem;
 } */
 
 .stu-info{
+    max-width: 7.5rem;
+    display: flex;
+    background: none;
+    border: none;
+    border-bottom: 1px solid;
+    text-align: center;
+}
+
+.pro-info{
     max-width: 7.5rem;
     display: flex;
     background: none;
