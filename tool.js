@@ -31,8 +31,9 @@ function get_role_info(role) {
 
 function token_analysis(token) {
 	let data = token_list[token]
-	let _, kid = get_role_info(data.role)
-	return data.id, data.role, data.name, kid
+	let tmp = get_role_info(data.role)
+	let kid = tmp[1]
+	return [data.id, data.role, data.name, kid]
 }
 
 module.exports = {

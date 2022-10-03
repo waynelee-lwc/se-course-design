@@ -6,11 +6,11 @@ const random_string = require('string-random')
 async function profile(req,res){
     var data = req.body
     var token = req.headers.token
-    
-    var id, role, name, kid= tool.token_analysis(token)
+    console.log(token)
+    var tmp = tool.token_analysis(token)
+    var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
 
     var sql = mysql.format('select * from ' +  role + ' where ' + kid + ' = ?', id)
-    console.log(sql)
 
     var result = await query(sql)
     var resp = {
@@ -28,12 +28,18 @@ async function profile(req,res){
     
     result = result[0]
     console.log(result)
-    
+
     res.send({
     	"message": "获取成功",
     	"code": 200,
     	"data": {
-    		"token": token,
+            "name": result.name,
+            "id": result.id,
+            "role": role,
+            "dept": result.dept,
+            "birthday": result.birthday,
+            "status": result.status,
+            "ssn": result.ssn
     	}
     })
    	res.end()
