@@ -4,7 +4,7 @@ window.onresize = function(){
 	document.getElementsByTagName('html')[0].style.fontSize = (16/1920) * window.innerWidth + "px";
 }
 
-let address = 'http://www.wayne-lee.cn:3012/'
+let address = 'http://www.wayne-lee.cn:3012'
 
 $('.role-radio').click(function(e){
     console.log(e)
@@ -12,19 +12,23 @@ $('.role-radio').click(function(e){
 })
 
 $('.login-submit').on('click',function(){
-    let userid = $('.ID').val()
+    let name = $('.name').val()
     let password = $('.password').val()
     let role = $("input:radio:checked").val()
+
+    console.log(name,password,role)
 
     $.ajax({
         url:`${address}/login`,
         type:'post',
         data:{
-            id:userid,
+            name:name,
             password:password,
             role:role
         },
         success:function(res){
+            console.log(res)
+            alert(JSON.stringify(res))
             if(res.code != 200){
                 alert(res.message)
             }else{
@@ -33,11 +37,11 @@ $('.login-submit').on('click',function(){
                 if(role == 'student'){
                     location.href = '/student.html'
                 }
-                if(role == 'teacher'){
-                    location.href = '/teacher.html'
+                if(role == 'professor'){
+                    location.href = '/professor.html'
                 }
-                if(role == 'admin'){
-                    location.href = '/admin.html'
+                if(role == 'registrar'){
+                    location.href = '/registrar.html'
                 }
             }
         }
