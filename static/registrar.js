@@ -101,7 +101,7 @@ function professorList(){
         url:`${address}/professorList`,
         type:'get',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:data,
         success:(res)=>{
@@ -153,7 +153,7 @@ function updateProfessor(){
         url:`${address}/updateProfessor`,
         type:'post',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:{
             id:id,
@@ -187,7 +187,7 @@ function deleteProfessor(){
         url:`${address}/deleteProfessor`,
         type:'post',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:{
             id:id,
@@ -217,7 +217,7 @@ function addProfessor(){
         url:`${address}/addProfessor`,
         type:'post',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:{
             name:name,
@@ -251,7 +251,7 @@ function studentList(){
         url:`${address}/studentList`,
         type:'get',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:data,
         success:(res)=>{
@@ -318,7 +318,7 @@ function updateStudent(){
         url:`${address}/updateStudent`,
         type:'post',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:{
             id:id,
@@ -352,7 +352,7 @@ function deleteStudent(){
         url:`${address}/deleteStudent`,
         type:'post',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:{
             id:id,
@@ -383,7 +383,7 @@ function addStudent(){
         url:`${address}/addStudent`,
         type:'post',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         data:{
             name:name,
@@ -403,39 +403,39 @@ function addStudent(){
     })
 }
 
-function addStudent(){
-    let name = $('.student-add .pro-name input').val()
-    let birthday = $('.student-add .pro-birthday input').val()
-    let dept = $('.student-add .pro-dept input').val()
-    let ssn = $('.student-add .pro-ssn input').val()
+// function addStudent(){
+//     let name = $('.student-add .pro-name input').val()
+//     let birthday = $('.student-add .pro-birthday input').val()
+//     let dept = $('.student-add .pro-dept input').val()
+//     let ssn = $('.student-add .pro-ssn input').val()
     
-    // console.log(name,birthday,graduation,ssn)
+//     // console.log(name,birthday,graduation,ssn)
 
-    $.ajax({
-        url:`${address}/addProfessor`,
-        type:'post',
-        headers:{
-            'token':'registrar',
-        },
-        data:{
-            name:name,
-            birthday:birthday,
-            dept:dept,
-            ssn:ssn,
-            status:0,
-        },
-        success:(res)=>{
-            console.log(res)
-        }
-    })
-}
+//     $.ajax({
+//         url:`${address}/addProfessor`,
+//         type:'post',
+//         headers:{
+//             'token':JSON.parse(localStorage.getItem('token')),
+//         },
+//         data:{
+//             name:name,
+//             birthday:birthday,
+//             dept:dept,
+//             ssn:ssn,
+//             status:0,
+//         },
+//         success:(res)=>{
+//             console.log(res)
+//         }
+//     })
+// }
 
 function checkProfile(){
     $.ajax({
         url:`${address}/profile`,
         type:'get',
         headers:{
-            'token':'registrar',
+            'token':JSON.parse(localStorage.getItem('token')),
         },
         success:function(res){
             if(res.code != 200){

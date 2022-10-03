@@ -138,6 +138,7 @@ body{
     height: 75%;
     overflow: auto;
     border-bottom: 4px double;
+    border-top: 1px solid;
 }
 
 .section-table table,
