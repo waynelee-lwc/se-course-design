@@ -78,7 +78,34 @@ $('.profile-submit').on('click',function(){
 $('.search-submit').click(loadSectionList)
 $('.create-course-submit').click(createCourse)
 $('.cross').click(hideShadow)
+$('.stu-add-submit').click(addStudent)
 
+function addStudent(){
+    let name = $('.student-add .stu-name input').val()
+    let birthday = $('.student-add .stu-birthday input').val()
+    let graduation = $('.student-add .stu-graduation input').val()
+    let ssn = $('.student-add .stu-ssn input').val()
+    
+    // console.log(name,birthday,graduation,ssn)
+
+    $.ajax({
+        url:`${address}/addStudent`,
+        type:'post',
+        headers:{
+            'token':'registrar',
+        },
+        data:{
+            name:name,
+            birthday:birthday,
+            graduation_date:graduation,
+            ssn:ssn,
+            status:0,
+        },
+        success:(res)=>{
+            console.log(res)
+        }
+    })
+}
 
 function checkProfile(){
     $.ajax({
