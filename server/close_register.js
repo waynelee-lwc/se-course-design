@@ -81,7 +81,7 @@ async function closeRegister(req,res) {
         }
     }
 
-    console.log("final_result", final_result)
+    // console.log("final_result", final_result)
     sql = mysql.format("select * from course_professor_timeslot where semester = ?", [ls[0]])
     result = await query(sql)
     result = JSON.parse(JSON.stringify(result))
@@ -112,6 +112,9 @@ async function closeRegister(req,res) {
     // console.log(sql)
     result = await query(sql)
     result = JSON.parse(JSON.stringify(result))
+    
+    fs.writeFileSync('./sys_config.json', 
+        JSON.stringify({"semester":"45", "start_time":"--", "end_time":"--", "sys_name":"welcome", "state": 0}))
 
     res.send({
         "message": "关闭成功",
