@@ -175,7 +175,6 @@ function getGrades(){
                         <td>${item.name}</td>
                         <td>${item.dept}</td>
                         <td>${item.professor_name}</td>
-                        <td>${item.price}$</td>
                         <td>${item.grades}</td>
                     </tr>
                     `))
