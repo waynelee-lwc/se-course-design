@@ -54,7 +54,7 @@ async function submitSchedule(req,res){
         result = JSON.parse(JSON.stringify(result))
         if(result[0].stu_num >= 10) continue
         if(!check_result.re) {
-            final_result += check_result.rel
+            final_result.push(check_result.rel)
         } else {
             oL.push(wL[x])
             sql = mysql.format("update course_schedule set state = ? where sche_id = ? and cid = ? and type = ? ", [1, wL[x].sche_id, wL[x].cid, wL[x].type])
