@@ -192,6 +192,29 @@ function systemStatus(){
                 sysstat = res.data
             }
             $('.open-registration').click(showShadowSection)
+            $('.close-registration').click(closeRegistration)
+        }
+    })
+}
+
+function closeRegistration(){
+    if(!confirm(`Are you sure to close this registration?\nPlease think twice before continuing, this operation can not be cancelled!`)){
+        return
+    }
+    $.ajax({
+        url:`${address}/closeRegister`,
+        type:'post',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                alert('successfully!')
+                location.reload()
+            }else{
+                alert(`failed! ${res.message}`)
+
+            }
         }
     })
 }
