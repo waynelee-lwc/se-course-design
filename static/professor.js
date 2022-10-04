@@ -64,10 +64,11 @@ function courseAvailableList(){
                             <td>10</td>
                             <td>${item.price}$</td>
                             <td>${item.professor_name == null ? 'Teachable' : 'Unteachable'}</td>
-                            <td><button class="btn btn-success" ${item.professor_name == null ? '' : 'disabled'}>Teach</button></td>
+                            <td><button id="course-teach-${item.cid}" class="btn btn-success course-teach" ${item.professor_name == null ? '' : 'disabled'}>Teach</button></td>
                         </tr>
                     `))
                 }
+                $('.course-teach').click(teachCourse)
 
                 $('.course-entry').on('mouseover',function(){
                     let id = $(this).attr('id').split('-')[2]
@@ -92,8 +93,24 @@ function courseAvailableList(){
                 })
 
             }else{
-                alert(`get course list failed! ${res.message}`)
+                // alert(`get course list failed! ${res.message}`)
             }
+        }
+    })
+}
+
+function teachCourse(){
+    let id = $(this).attr('id').split('-')[2]
+    $.ajax({
+        url:`${address}/teach`,
+        type:'post',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        data:{
+            cid:id
+        },
+        success:(res)=>{
         }
     })
 }
@@ -133,7 +150,7 @@ function courseTaken(){
                 }
                 refreshView()
             }else{
-                alert(`load selected courses failed! ${res.message}`)
+                // alert(`load selected courses failed! ${res.message}`)
             }
         }
     })
