@@ -5,7 +5,7 @@ token_list = {
 		"name":"student"
 	},
 	"professor": {
-		"id": 0, 
+		"id": 99990000, 
 		"role":"professor",
 		"name":"professor"
 	},

@@ -75,8 +75,8 @@ app.get('/getStuCourses', getStuCourses)
 // getProCourses = require('./server/get_proCourses.js')
 // app.get('/getProCourses', getStuCourses) 
 
-// selectedProCourses = require('./server/selected_proCourses.js')
-// app.get('/selectedProCourses', selectedProCourses)
+selectedProCourses = require('./server/selected_proCourses.js')
+app.get('/selectedProCourses', selectedProCourses)
 
 courseStudentList = require('./server/courseStudentList.js')
 app.get('/courseStudentList', courseStudentList)
