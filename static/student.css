@@ -33,7 +33,7 @@ body{
     width: 6rem;
     height: 6rem;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 1rem;
     background-image: url(./user.png);
     background-size: 100%;
 }
@@ -49,7 +49,7 @@ body{
     width: 100%;
     height: 32rem;
     margin: auto;
-    margin-top: 4rem;
+    margin-top: 1rem;
     border-top: 1px solid gray;
     /* padding-top: 2rem; */
     position: relative;
@@ -178,8 +178,8 @@ body{
 .userinfo-item{
     list-style: none;
     text-align: left;
-    font-size: 1.25rem;
-    margin-top: 0.75rem;
+    font-size: 1rem;
+    /* margin-top: -0.25rem;*/
 }
 
 .stu-schedule .operation{
@@ -242,4 +242,13 @@ body{
     width: 1rem;
     /* margin-left: 1rem; */
     border: 1px solid;
+}
+
+.registration{
+    border-top: 1px solid;
+    text-align: center;
+    font-size: 1.375rem;
+    margin-top: 1.5rem; 
+    padding: 0rem 1rem;
+    padding-top: 1rem;
 }
