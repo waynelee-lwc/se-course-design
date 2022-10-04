@@ -47,6 +47,8 @@
     height: 5rem;
     top: 1rem;
     left: 5%;
+    font-size: 2rem;
+    text-align: center;
 }
 
 /* .schedule-table{
@@ -293,8 +295,8 @@
 .shadow-section{
     border: 4px double;
     position: absolute;
-    height: 60rem;
-    width: 75rem;
+    height: 50%;
+    width: 40%;
     background: white;
     left: 50%;
     top: 50%;
