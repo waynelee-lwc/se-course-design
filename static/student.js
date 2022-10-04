@@ -79,6 +79,18 @@ function systemStatus(){
                 </ul>
                 `))
                 sysstat = res.data
+                
+                if(sysstat.state == 1){
+                    $('.stu-grades .block-shadow').show()
+                    $('.stu-schedule .block-shadow').hide()
+                    $('.score-table .block-shadow').hide()
+                    $('.stu-create-schedule .block-shadow').hide()
+                }else{
+                    $('.stu-grades .block-shadow').hide()
+                    $('.stu-schedule .block-shadow').show()
+                    $('.score-table .block-shadow').show()
+                    $('.stu-create-schedule .block-shadow').show()
+                }
             }
         }
     })
@@ -136,6 +148,8 @@ function commitSchedule(){
                 alert('succefully!')
                 getSchedule()
                 getCourseList()
+            }else{
+                alert(`failed! ${res.message}`)
             }
         }
     })
@@ -157,6 +171,8 @@ function saveSchedule(){
                 alert('succefully!')
                 getSchedule()
                 getCourseList()
+            }else{
+                alert(`failed! ${res.message}`)
             }
         }
     })
