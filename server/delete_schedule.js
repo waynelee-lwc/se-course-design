@@ -3,10 +3,11 @@ var query = require('../db.js')
 var tool = require('../tool.js')
 const random_string = require('string-random')
 
-async function saveSchedule(req,res){
+async function deleteSchedule(req,res){
     var data = req.body
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
+
     if (typeof(tmp) == "string") {
         res.send({
             "message": "token错误",
@@ -37,37 +38,19 @@ async function saveSchedule(req,res){
     if (result.length > 0) {
         sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
         result = await query(sql)
-        console.log(sql, '\n', result)
+        // console.log(sql, '\n', result)
+        
+        sql = mysql.format("delete from schedule where sche_id = ? ", [result[0].sche_id])
+        result = await query(sql)
     }
-    // console.log(courseList)
-
-    if (courseList.length == 0 ) {
-        res.send({
-            "message": "保存成功",
-            "code": 200,
-            "data": result
-        })  
-        return 
-    }
-
-    sql = "insert into course_schedule(sche_id, cid, state, type ) values "
-    for (let x in courseList) {
-        if (x > 0) {
-            sql += " , "
-        } 
-        sql += mysql.format("(?,?,?,?) \n ", [sche_id, courseList[x].cid, courseList[x].state, courseList[x].type])
-    } 
-
-    console.log(sql)
-    result = await query(sql)
 
     result = JSON.parse(JSON.stringify(result))
     res.send({
-        "message": "保存成功",
+        "message": "删除成功",
         "code": 200,
         "data": result
     })
     res.end()
     return 
 }
-module.exports = saveSchedule
+module.exports = deleteSchedule

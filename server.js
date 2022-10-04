@@ -62,11 +62,32 @@ app.get('/getSchedule', getSchedule)
 saveSchedule = require('./server/save_schedule.js')
 app.post('/saveSchedule', saveSchedule)
 
+deleteSchedule = require('./server/delete_schedule.js')
+app.post('/deleteSchedule', deleteSchedule)
+
 // submitSchedule = require('./server/submit_schedule.js')
 // app.post('/saveSchedule', submitSchedule)
 
-getStuCourses = require('./server/get_stuCourses.js')
-app.get('/getStuCourses', getStuCourses) 
+// getStuCourses = require('./server/get_stuCourses.js')
+// app.get('/getStuCourses', getStuCourses) 
+
+// getProCourses = require('./server/get_proCourses.js')
+// app.get('/getProCourses', getStuCourses) 
+
+// getGrades = require('./server/get_grades.js')
+// app.get('/getGrades', getGrades)
+
+// setGrades = require('./server/set_grades.js')
+// app.post('/setGrades', setGrades)
+
+// openRegister = require('./server/open_register.js')
+// app.post('/openRegister', openRegister)
+
+// closeRegister = require('./server/close_register.js')
+// app.post('/closeRegister', closeRegister)
+
+// teach = require('./server/teach.js')
+// app.post('/teach', teach)
 
 let server = app.listen(3012,()=>{
     console.log('The server is listening on port : 3012')
