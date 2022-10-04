@@ -59,8 +59,8 @@ app.post('/addSchedule', addSchedule)
 getSchedule = require('./server/get_schedule.js')
 app.get('/getSchedule', getSchedule)
 
-// saveSchedule = require('./server/save_schedule.js')
-// app.post('/saveSchedule', saveSchedule)
+saveSchedule = require('./server/save_schedule.js')
+app.post('/saveSchedule', saveSchedule)
 
 // submitSchedule = require('./server/submit_schedule.js')
 // app.post('/saveSchedule', submitSchedule)

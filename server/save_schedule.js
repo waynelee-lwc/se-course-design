@@ -20,11 +20,12 @@ async function saveSchedule(req,res){
     var sql = ""
     var result = ""
     
-    sql = mysql.format("select from schedule where sid = ? ", [id])
+    sql = mysql.format("select * from schedule where sid = ? ", [id])
     result = await query(sql)
     console.log(sql, '\n', result)
-
-    sql = mysql.format("delete from course_schedule where sche_id = ? ", [data.sche_id])
+    result = JSON.parse(JSON.stringify(result))
+    
+    sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
     result = await query(sql)
 
     // console.log(sql, '\n', result)

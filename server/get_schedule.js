@@ -48,7 +48,7 @@ async function getSchedule(req,res){
                         "   JOIN course_schedule ON course.cid = course_schedule.cid "  + 
                         "   JOIN time_slot ON course.tsid = time_slot.tsid " + 
                         "   JOIN schedule ON schedule.sche_id = course_schedule.sche_id " + 
-                        "   JOIN ( SELECT professor.name as professor_name, teach.cid FROM teach JOIN professor ON teach.pid = professor.pid ) AS tmp ON tmp.cid = course.cid " + 
+                        "   LEFT JOIN ( SELECT professor.name as professor_name, teach.cid FROM teach JOIN professor ON teach.pid = professor.pid ) AS tmp ON tmp.cid = course.cid " + 
                         " WHERE schedule.sid = ? ", [id])
     result = await query(sql)
     // console.log(sql)
