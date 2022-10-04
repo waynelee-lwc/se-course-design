@@ -15,32 +15,31 @@ async function closeRegister(req,res) {
         return
     }
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    var sql = "", result = "",ls = tool.get_sys_info() 
+    var sql = "", result = "",ls = tool.get_sys_info(), oL = "", wL = "", scheL = "", exL = ""
 
-    // 检查是否在注册
-    // res.send({
-    //     "message": "关闭失败",
-    //     "code":200
-    // })
-
-    sql = mysql.format("select * from course_professor_timeslot where semester = ?", [ls[0]])
+    sql = mysql.format("select * from course_professor_timeslot join course_schedule on course_schedule.cid = course_professor_timeslot.cid join schedule on schedule.sche_id = course_schedule.sche_id where schedule.semester = ?", [ls[0]])
     result = await query(sql)
     result = JSON.parse(JSON.stringify(result))
     
+    // console.log(sql, result)
     exL = []
     scheL = new Set([])
     for (let x in result) {
         if (result[x].pid == null) {
-            // sql = mysql.format("delete from course_schedule where cid = ?", [result[x].cid])
-            // _ = await query(sql)
-            console.log(result[x].cid)
+            sql = mysql.format("delete from course_schedule where cid = ?", [result[x].cid])
+            result = await query(sql)
+            // console.log(result[x], result[x].cid)
             continue
         }
         scheL.add(result[x].sche_id)
         exL.push(result[x])
     }
-    
-    final_result = []
+    // console.log("scheL:", scheL)
+    // console.log("exL:", exL)
+
+    var final_result = []
+    scheL = Array.from(scheL)
+
     for (let y in scheL) {
         oL = []
         wL = []
@@ -55,11 +54,13 @@ async function closeRegister(req,res) {
             }
         }   
         
-        if (ex_one != null) wl.push(ex_one)
-        if (ex_two != null) wl.push(ex_two)
+        if (ex_one != null) wL.push(ex_one)
+        if (ex_two != null) wL.push(ex_two)
         
+        // console.log("oL: ", oL, "wL: ", wL)
+
         for (let x in wL) {
-            if(ol.length == 4) break
+            if(oL.length == 4) break
             sql = mysql.format("select stu_num from course_professor_timeslot where cid = ? and semester = ?", [wL[x].cid, ls[0]])
             result = await query(sql)
             result = JSON.parse(JSON.stringify(result))
@@ -75,10 +76,48 @@ async function closeRegister(req,res) {
                 console.log(check_result.rel)
             }
         }
+        for (let x in oL) {
+            final_result.push(oL[x])
+        }
     }
 
-    // 对每门课程检查是否有教授, 并且有3个学生
-    // 
+    console.log("final_result", final_result)
+    sql = mysql.format("select * from course_professor_timeslot where semester = ?", [ls[0]])
+    result = await query(sql)
+    result = JSON.parse(JSON.stringify(result))
+
+    for (let x in result) {
+        if (result[x].stu_num < 0) {
+            sql = mysql.format("delete from course_schedule where cid = ?", [result[x].cid])
+            let re = await query(sql)
+            console.log(result[x].cid)
+        }
+    }
+
+    if (final_result.length == 0) {
+        res.send({
+            "message": "关闭成功, oL.length = 0",
+            "code":200
+        })
+        return 
+    }
+    sql = mysql.format("delete from student_course where semester = ? ", [ls[0]] )
+    result = await query(sql)
+
+    sql = mysql.format("insert into student_course (sid, cid, grades, semester) values " )
+    for (let x in final_result) {
+        if (x > 0) sql += " , "
+        sql += mysql.format(" (?, ?, ?, ?) ", [final_result[x].sid, final_result[x].cid, 0, ls[0]])
+    }
+    // console.log(sql)
+    result = await query(sql)
+    result = JSON.parse(JSON.stringify(result))
+
+    res.send({
+        "message": "关闭成功",
+        "code":200,
+        "data": result
+    })
     return 
 }
 

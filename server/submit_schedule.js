@@ -27,7 +27,7 @@ async function submitSchedule(req,res){
                         " where sid = ? and course.semester = ?", [id, ls[0]])
 
     result = await query(sql)
-    result = JSON.parse(JSON.stringify(result))
+        
     if (result.status == 0) {
         res.send({
             "message": result.msg,
