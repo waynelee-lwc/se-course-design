@@ -72,8 +72,8 @@ app.post('/deleteSchedule', deleteSchedule)
 getStuCourses = require('./server/get_stuCourses.js')
 app.get('/getStuCourses', getStuCourses) 
 
-// getProCourses = require('./server/get_proCourses.js')
-// app.get('/getProCourses', getStuCourses) 
+getProCourses = require('./server/get_proCourses.js')
+app.get('/getProCourses', getProCourses) 
 
 selectedProCourses = require('./server/selected_proCourses.js')
 app.get('/selectedProCourses', selectedProCourses)
