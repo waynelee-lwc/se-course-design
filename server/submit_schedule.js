@@ -57,7 +57,7 @@ async function submitSchedule(req,res){
             result += check_result.rel
         } else {
             oL.push(wL[x])
-            sql = mysql.format("update course_schedule set state = ? where sche_id = ? and cid = ? and type = ? ", [1, wL[x].sche_id, wL[x].cid, wL[x].type, ls[0]])
+            sql = mysql.format("update course_schedule set state = ? where sche_id = ? and cid = ? and type = ? ", [1, wL[x].sche_id, wL[x].cid, wL[x].type])
             result = await query(sql)
         }
     }
