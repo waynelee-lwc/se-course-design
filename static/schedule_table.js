@@ -72,8 +72,12 @@ function parseSchedule(schedule){
         val = schedule[key]
         res[i] = []
         for(let j = 1;j <= 11;j++){
-            v = val[j]
-            res[i][j] = Number.parseInt(v)
+            if(val){
+                v = val[j]
+                res[i][j] = Number.parseInt(v)
+            }else{
+                res[i][j] = 0
+            }
         }
     }
     // console.log(res)
