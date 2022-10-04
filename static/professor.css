@@ -24,6 +24,8 @@ body{
 
 .dashboard{
     padding: 0rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .icon{

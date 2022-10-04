@@ -115,6 +115,7 @@ function saveSchedule(){
             if(res.code == 200){
                 alert('succefully!')
                 getSchedule()
+                getCourseList()
             }
         }
     })
@@ -169,6 +170,27 @@ function getGrades(){
     })
 }
 
+function checkInSchedule(cid){
+    for(let item of acceptedList){
+        if(item.cid == cid){
+            return 1
+        }
+    }
+    for(let item of uncommitedList){
+        if(item.cid == cid){
+            return 2
+        }
+    }
+    if(backup1 && backup1.cid == cid){
+        return 3
+    }
+    if(backup2 && backup2.cid == cid){
+        return 4
+    }
+    return 0
+}
+
+let courseList = []
 function getCourseList(){
     $.ajax({
         url:`${address}/getStuCourses`,
@@ -177,12 +199,103 @@ function getCourseList(){
             'token':JSON.parse(localStorage.getItem('token')),
         },
         success:(res)=>{
-            console.log(res)
+            if(res.code == 200){
+                let list = res.data
+                $('.score-table tbody').empty()
+                courseList = []
+                for(let item of list){
+                    let inList = checkInSchedule(item.cid)
+                    // console.log(item.cid,inList,(inList != 1 && inList != 2) ? '' : 'disabled')
+                    courseList.push(item)
+                    $('.score-table tbody').append($(`
+                    <tr class="course-entry" id="course-entry-${item.cid}">
+                        <td>${item.cid}</td>
+                        <td>${item.name}</td>
+                        <td>${item.dept}</td>
+                        <td>${item.professor_name == null ? 'No professor' : item.professor_name}</td>
+                        <td>${item.price}$</td>
+                        <td>${10 - item.stu_num}</td>
+                        <td>10</td>
+                        <td>Available</td>
+                        <td><button id="course-select-${item.cid}" class="btn btn-primary course-select" ${(inList != 1 && inList != 2) ? '' : 'disabled'}>Select</button></td>
+                        <td><button id="course-backup-${item.cid}" class="btn btn-success course-backup" ${inList == 0 ? '' : 'disabled'}>Backup</button></td>
+                    </tr>
+                    `))
+                }
+
+                $('.course-entry').on('mouseover',function(){
+                    let id = $(this).attr('id').split('-')[2]
+                    id = Number.parseInt(id)
+                    for(let item of courseList){
+                        if(item.cid == id){
+                            setCurrTable(parseSchedule(item))
+                        }
+                    }
+                    refreshView()
+                })
+                $('.course-entry').on('mouseout',function(){
+                    let id = $(this).attr('id').split('-')[2]
+                    id = Number.parseInt(id)
+
+                    for(let item of courseList){
+                        if(item.cid == id){
+                            unsetCurrTable(parseSchedule(item))
+                        }
+                    }
+                    refreshView()
+                })
+                $('.course-select').click(courseSelect)
+                $('.course-backup').click(courseBackup)
+            }
         }
     })
 }
 
-$('.search-submit').click(reloadTakable)
+function courseSelect(){
+    let id = $(this).attr('id').split('-')[2]
+    id = Number.parseInt(id)
+    console.log(id)
+
+    if(acceptedList.length + uncommitedList.length >= 4){
+        alert(`you can't select more than 4 courses!`)
+        return
+    }
+
+    for(let item of courseList){
+        if(item.cid == id){
+            uncommitedList.push(item)
+            console.log(item)
+            break
+        }
+    }
+    
+    getCourseList()
+    refreshScheduleList()
+    refreshScheduleTable()
+}
+
+function courseBackup(){
+    let id = $(this).attr('id').split('-')[2]
+    id = Number.parseInt(id)
+    console.log(id)
+
+    if(acceptedList.length + uncommitedList.length >= 4){
+        alert(`you can't select more than 4 courses!`)
+        return
+    }
+
+    for(let item of courseList){
+        if(item.cid == id){
+            backup2 = backup1
+            backup1 = item
+            break
+        }
+    }
+    
+    getCourseList()
+    refreshScheduleList()
+    refreshScheduleTable()
+}
 
 function getSchedule(){
     $('.stu-schedule').hide()
@@ -211,8 +324,6 @@ function getSchedule(){
                     }
                 }
                 
-                
-
                 //append uncommited courses
                 for(let item of list){
                     if(item.type == 0 && item.state == 0){
@@ -327,7 +438,7 @@ function cancelAc(){
     }
     refreshScheduleList()
     refreshScheduleTable()
-
+    getCourseList()
 }
 
 function cancelUc(){
@@ -343,6 +454,7 @@ function cancelUc(){
     }
     refreshScheduleList()
     refreshScheduleTable()
+    getCourseList()
 }
 
 function cancelBk1(){
@@ -392,173 +504,6 @@ function setProfile(){
                 <li class="userinfo-item">Graduation&nbsp;&nbsp;<b>${user.dept}</b></li>
                 <li class="userinfo-item">SSN&nbsp;&nbsp;<b>${user.ssn}</b></li>
             `))
-        }
-    })
-}
-
-let takable = []
-function reloadTakable(){
-    
-    let course_name = $('.course_name input').val()
-    let dept_name = $('.dept_name input').val()
-    let teacher_name = $('.teacher_name input').val()
-    let semester = $('.semester select').val()
-    let year = semester.split('-')[0]
-    semester = semester.split('-')[1]
-
-    //学生可选课程列表
-    $.ajax({
-        url:`${address}/student/section_list_takable`,
-        type:'get',
-        headers:{
-            token:JSON.parse(localStorage.getItem('token'))
-            // token:'student'
-        },
-        data:{
-            course_name:course_name,
-            teacher_name:teacher_name,
-            dept_name:dept_name,
-            year:year,
-            semester:semester  
-        },
-        success:function(res){
-            // console.log(res)
-            if(res.code != 200){
-                alert('表单加载错误！')
-            }else{
-                takable = res.data
-                $('.section-table tbody').empty()
-                for(let idx in res.data){
-                    sec = res.data[idx]
-                    $('.section-table tbody').append(
-                        $(`
-                        <tr>
-                            <td>${sec.course_id}</td>
-                            <td>${sec.sec_id}</td>
-                            <td>${sec.title}</td>
-                            <td>${sec.course_type}</td>
-                            <td>${sec.dept_name}</td>
-                            <td>${sec.professor_name == 'null' ? 'no prefessor ':professor_names}</td>
-                            <td>${sec.year} ${sec.semester}</td>
-                            <td>${sec.teacher_names}</td>
-                            <td><button class="btn btn-primary check-schedule" id="${idx}-${sec.sec_id}">查看</button></td>
-                            <td><button class="btn btn-${sec.SID ? 'success' : 'danger'} take-untake" id="${sec.SID ? 'untake' : 'take'}-${sec.sec_id}">${sec.SID ? '退选' : '选课'}</button></td>
-                        </tr>
-                        `)
-                    )
-                }
-            }
-            $('.take-untake').click(takeUntake)
-            $('.check-schedule').click(checkSchedule)
-        }
-    })
-}
-
-function takeUntake(){
-    id = $(this).attr('id')
-    operation = id.split('-')[0]
-    sec_id = id.split('-')[1]
-    $.ajax({
-        url:`${address}/student/take_untake`,
-        type:'post',
-        headers:{
-            token:JSON.parse(localStorage.getItem('token'))
-            // token:'student'
-        },
-        data:{
-            operation:operation,
-            sec_id:sec_id
-        },
-        success:function(res){
-            if(res.code != 200){
-                alert(res.message)
-            }else{
-                reloadTakable()
-                loadSchedule()
-                alert(operation == 'take' ? '选课成功!' : '退选成功!')
-            }
-        }
-    })
-}
-
-function checkSchedule(){
-    let id = $(this).attr('id')
-    let sec_id = id.split('-')[1]
-    let idx = id.split('-')[0]
-    sec = takable[idx]
-    console.log(sec)
-
-    $.ajax({
-        url:`${address}/search/get_time_slog_by_sec_id`,
-        type:'get',
-        data:{
-            sec_id:sec_id
-        },
-        success:function(res){
-            timeslot = res.data.timeSlot
-            table = parseSchedule(timeslot)
-            setCurrTable(table)
-            initHistoryTable(table)
-            refreshView()
-            showShadow()
-
-            $('.schedule-title').empty()
-            $('.schedule-title').append($(`
-                <div class="name">${sec.title}</div>
-                <div class="teachers">${sec.teacher_names}</div>
-                <div class="type">${sec.course_type}</div>
-                <div class="dept">${sec.dept_name}</div>
-                <div class="semester">${sec.year} ${sec.semester}</div>
-            `))
-
-            $('.schedule-panel').empty()
-            $('.schedule-panel').append($(`
-                <div class="begin-week">从第<b>${timeslot.begin_week}</b>周开始</div>
-                <div class="end-week">到第<b>${timeslot.end_week}</b>周结束</div>
-                <div class="building">教学楼:<b>${sec.building}</b></div>
-                <div class="classroom">教室:<b>${sec.room_number}</b></div>
-                <button class="btn btn-primary show-history">展示已选课程</button>
-            `))
-            $('.show-history').click(loadHistory)
-        }
-    })
-}
-
-function loadHistory(){
-    let val = $(this).text()
-    if(val == '展示已选课程'){
-        initHistoryTable()
-        for(sec of historyTakes){
-            table = parseSchedule(sec)
-            for(let i = 1;i <= 7;i++){
-                for(let j = 1;j <= 11;j++){
-                    historyTable[i][j] += table[i][j]
-                }
-            }
-        }
-        refreshView()
-        $(this).text('隐藏已选课程')
-    }else{
-        initHistoryTable()
-        refreshView()
-        $(this).text('展示已选课程')
-    }
-    
-}
-
-function loadSemesters(){
-    $.ajax({
-        url:`${address}/search/semester_list`,
-        type:'get',
-        success:function(res){
-            semesterList = res.semesterList
-            $('.semester select').empty()
-            $('.semester select').append($(`<option value="-" selected>开课学期</option>`))
-            for(let semester of semesterList){
-                $('.semester select').append($(`
-                    <option value="${semester.year}-${semester.semester}">${semester.year} ${semester.semester}</option>
-                `))
-            }
         }
     })
 }
