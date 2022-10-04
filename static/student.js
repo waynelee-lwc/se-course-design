@@ -306,7 +306,14 @@ function courseSelect(){
     for(let item of courseList){
         if(item.cid == id){
             uncommitedList.push(item)
-            console.log(item)
+            
+            if(backup1 && backup1.cid == id){
+                backup1 = backup2
+                backup2 = undefined
+            }
+            if(backup2 && backup2.cid == id){
+                backup2 = undefined
+            }
             break
         }
     }
