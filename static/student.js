@@ -519,7 +519,7 @@ function refreshScheduleTable(){
         setHistoryTable(parseSchedule(item))
     }
     for(let item of uncommitedList){
-        setCurrTable(parseSchedule(item))
+        setHistoryTable(parseSchedule(item))
     }
     refreshView()
 }
