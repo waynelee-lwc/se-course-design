@@ -390,6 +390,7 @@ function getSchedule(){
                 refreshScheduleList()
                 refreshScheduleTable()
                 
+                getCourseList() 
             }else{
                 $('.stu-create-schedule').show()
             }
