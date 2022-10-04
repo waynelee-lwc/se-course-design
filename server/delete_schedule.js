@@ -36,11 +36,11 @@ async function deleteSchedule(req,res){
     var sche_id = result[0].sche_id
 
     if (result.length > 0) {
-        sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
+        sql = mysql.format("delete from course_schedule where sche_id = ? ", [sche_id])
         result = await query(sql)
         // console.log(sql, '\n', result)
         
-        sql = mysql.format("delete from schedule where sche_id = ? ", [result[0].sche_id])
+        sql = mysql.format("delete from schedule where sche_id = ? ", [sche_id])
         result = await query(sql)
     }
 
