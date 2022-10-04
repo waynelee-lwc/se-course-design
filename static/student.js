@@ -321,10 +321,10 @@ function courseBackup(){
     id = Number.parseInt(id)
     console.log(id)
 
-    if(acceptedList.length + uncommitedList.length >= 4){
-        alert(`you can't select more than 4 courses!`)
-        return
-    }
+    // if(acceptedList.length + uncommitedList.length >= 4){
+    //     alert(`you can't select more than 4 courses!`)
+    //     return
+    // }
 
     for(let item of courseList){
         if(item.cid == id){
