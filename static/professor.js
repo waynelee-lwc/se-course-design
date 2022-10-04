@@ -75,7 +75,6 @@ function courseAvailableList(){
 
                     for(let item of availableCourseList){
                         if(item.cid == id){
-                            console.log(item)
                             setCurrTable(parseSchedule(item))
                         }
                     }
@@ -101,6 +100,9 @@ function courseAvailableList(){
 
 function teachCourse(){
     let id = $(this).attr('id').split('-')[2]
+    if(!confirm(`sure to teach the course ${id}?`)){
+        return
+    }
     $.ajax({
         url:`${address}/teach`,
         type:'post',
@@ -108,9 +110,17 @@ function teachCourse(){
             'token':JSON.parse(localStorage.getItem('token')),
         },
         data:{
-            cid:id
+            id:id
         },
         success:(res)=>{
+            if(res == 200){
+                alert('successfully!')
+
+                courseTaken()
+                courseAvailableList()
+            }else{
+                alert(`failed ${res.message}`)
+            }
         }
     })
 }
