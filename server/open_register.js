@@ -15,7 +15,7 @@ async function openRegister(req,res) {
         return
     }
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    fs.writeFileSync('../sys_config.json', 
+    fs.writeFileSync('./sys_config.json', 
         JSON.stringify({"semester": data.semester, "start_time": data.start_time, "end_time": data.end_time, "sys_name": data.sys_name, "state": data.state})
         )
     

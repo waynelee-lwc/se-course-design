@@ -113,7 +113,7 @@ async function closeRegister(req,res) {
     result = await query(sql)
     result = JSON.parse(JSON.stringify(result))
     
-    fs.writeFileSync('../sys_config.json', 
+    fs.writeFileSync('./sys_config.json', 
         JSON.stringify({"semester":"45", "start_time":"--", "end_time":"--", "sys_name":"welcome", "state": 0}))
     tool.sys_init()
     res.send({
