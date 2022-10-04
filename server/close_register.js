@@ -39,7 +39,8 @@ async function closeRegister(req,res) {
         scheL.add(result[x].sche_id)
         exL.push(result[x])
     }
-
+    
+    final_result = []
     for (let y in scheL) {
         oL = []
         wL = []
@@ -53,8 +54,26 @@ async function closeRegister(req,res) {
                 else if(exL[x].state == 1) oL.push(exL[x])
             }
         }   
+        
+        if (ex_one != null) wl.push(ex_one)
+        if (ex_two != null) wl.push(ex_two)
+        
         for (let x in wL) {
-            
+            if(ol.length == 4) break
+            sql = mysql.format("select stu_num from course_professor_timeslot where cid = ? and semester = ?", [wL[x].cid, ls[0]])
+            result = await query(sql)
+            result = JSON.parse(JSON.stringify(result))
+            if(result[0].stu_num >= 10) continue
+
+            let check_result = tool.check_time(oL, [wL[x]])
+            if(check_result.re)  {
+                oL.push(wL[x])
+                sql = mysql.format("update course_schedule set state = ? where sche_id = ? and cid = ? and type = ? ", [1, wL[x].sche_id, wL[x].cid, wL[x].type])
+                _ = await query(sql)
+            }
+            else {
+                console.log(check_result.rel)
+            }
         }
     }
 

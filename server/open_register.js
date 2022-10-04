@@ -19,6 +19,7 @@ async function openRegister(req,res) {
         JSON.stringify({"semester": data.semester, "start_time": data.start_time, "end_time": data.end_time, "sys_name": data.sys_name, "state": data.state})
         )
     
+    tool.sys_init()
     res.send({
         "message": "修改系统成功",
         "code":200
