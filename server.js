@@ -96,8 +96,8 @@ app.get('/getSysStatus', getSysStatus)
 // closeRegister = require('./server/close_register.js')
 // app.post('/closeRegister', closeRegister)
 
-// teach = require('./server/teach.js')
-// app.post('/teach', teach)
+teach = require('./server/teach.js')
+app.post('/teach', teach)
 
 tool.sys_init()
 

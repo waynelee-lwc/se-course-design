@@ -58,7 +58,7 @@ async function saveSchedule(req,res){
         sql += mysql.format("(?,?,?,?) \n ", [sche_id, courseList[x].cid, courseList[x].state, courseList[x].type])
     } 
 
-    console.log(sql)
+    // console.log(sql)
     result = await query(sql)
 
     result = JSON.parse(JSON.stringify(result))

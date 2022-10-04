@@ -84,12 +84,40 @@ function sys_init() {
 	start_time = sys_config_data.start_time
 	end_time = sys_config_data.end_time
 	sys_name = sys_config_data.sys_name	
-	console.log(sys_config_data.sys_name,sys_name)
 }
 
 function get_sys_info() {
 	return [sys_semester, start_time, end_time, sys_name]
 }
+
+function check_time(selectList, nowList) {
+	function check(a, b) {
+		a = parseInt(Number(a), 2)
+		b = parseInt(Number(b), 2)
+		return a & b
+	}
+	function check_single(a, b) {
+		if(check(a.monday, b.monday) > 0) return false
+		if(check(a.tuesday, b.tuesday) > 0) return false
+		if(check(a.wednesday, b.wednesday) > 0) return false
+		if(check(a.thursday, b.thursday) > 0) return false
+		if(check(a.friday, b.friday) > 0) return false
+		if(check(a.saturday, b.saturday) > 0) return false
+		if(check(a.sunday, b.sunday) > 0) return false
+		return true
+	}
+	rel = []
+	for (x in selectList) {
+		for (y in nowList) {
+			if(check_single(selectList[x], nowList[y]) == false) 
+				rel.push([selectList[x].cid, nowList[y].cid])
+		}
+	}
+	console.log(rel)
+	if (rel.length > 0) return {"re": false, "rel": rel}
+	return {"re": true, "rel": []}
+}
+
 
 module.exports = {
 	"token_list": token_list,
@@ -105,4 +133,5 @@ module.exports = {
 	"end_time": end_time,
 	"sys_name": sys_name,
 	"get_sys_info": get_sys_info,
+	"check_time": check_time
 }

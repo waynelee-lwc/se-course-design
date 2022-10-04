@@ -21,10 +21,12 @@ async function deleteProfessor(req,res) {
         return
     }
     
-    var sql = mysql.format("delete from professor where pid = ?",
+    var sql = "", result = ""
+    
+    sql = mysql.format("delete from professor where pid = ?",
         [tool.old_pro_id(data.id)])
 
-    var result = await query(sql)
+    result = await query(sql)
     if (result.status == 0) {
         res.send({
             "message": result.msg,
@@ -33,6 +35,18 @@ async function deleteProfessor(req,res) {
         return
     }
 
+    sql = mysql.format("delete from teach where pid = ?",
+        [tool.old_pro_id(data.id)])
+
+    result = await query(sql)
+    if (result.status == 0) {
+        res.send({
+            "message": result.msg,
+            "code": 400 
+        })
+        return
+    }
+    
     res.send({
         "message": "删除成功",
         "code":200
