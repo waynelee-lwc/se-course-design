@@ -26,7 +26,7 @@ async function addProfessor(req,res){
     
     var sql = mysql.format("insert into professor(name, dept, birthday, status, ssn, password) values (?,?,?,?,?,?)",[data.name, data.dept, data.birthday, data.status, data.ssn, "123456"])
     var result = await query(sql)
-    console.log(result)
+    // console.log(result)
 
     if (result.status == 0) {
         res.send({
