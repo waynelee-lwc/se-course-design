@@ -68,8 +68,8 @@ app.post('/deleteSchedule', deleteSchedule)
 // submitSchedule = require('./server/submit_schedule.js')
 // app.post('/saveSchedule', submitSchedule)
 
-// getStuCourses = require('./server/get_stuCourses.js')
-// app.get('/getStuCourses', getStuCourses) 
+getStuCourses = require('./server/get_stuCourses.js')
+app.get('/getStuCourses', getStuCourses) 
 
 // getProCourses = require('./server/get_proCourses.js')
 // app.get('/getProCourses', getStuCourses) 
