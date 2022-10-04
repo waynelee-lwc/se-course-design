@@ -45,7 +45,7 @@ async function submitSchedule(req,res){
         if(result[x].state == 1) oL.push(result[x])
     }
 
-    result = []
+    final_result = []
 
     for (let x in wL) {
         let check_result = tool.check_time(oL, [wL[x]])
@@ -54,7 +54,7 @@ async function submitSchedule(req,res){
         result = JSON.parse(JSON.stringify(result))
         if(result[0].stu_num >= 10) continue
         if(!check_result.re) {
-            result += check_result.rel
+            final_result += check_result.rel
         } else {
             oL.push(wL[x])
             sql = mysql.format("update course_schedule set state = ? where sche_id = ? and cid = ? and type = ? ", [1, wL[x].sche_id, wL[x].cid, wL[x].type])
@@ -65,7 +65,7 @@ async function submitSchedule(req,res){
     res.send({
         "message": "提交成功",
         "code": 200,
-        "data": result
+        "data": final_result
     })
     res.end()
     return 
