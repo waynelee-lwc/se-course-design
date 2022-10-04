@@ -146,9 +146,11 @@ body{
 
 .stu-grades{
     width: 48%;
+    position: relative;
 }
 
 .stu-schedule{
+    position: relative;
     width: 48%;
 }
 
@@ -164,6 +166,7 @@ body{
     margin-top: 2%;
     border-bottom: 4px double;
     border-top: 1px solid;
+    position: relative;
 }
 
 .section-table .title,
@@ -254,4 +257,22 @@ body{
     margin-top: 1.5rem; 
     padding: 0rem 1rem;
     padding-top: 1rem;
+}
+
+.block-shadow{
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+    background-color: #3f51b5d4;
+    display: flex;
+    justify-content: center;
+    color: white;
+    align-items: center;
+}
+
+.block-shadow h2{
+    
 }
