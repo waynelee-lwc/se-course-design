@@ -51,6 +51,110 @@ $(document).ready(()=>{
     
 })
 
+$('.stu-schedule-add').click(addSchedule)
+$('.stu-schedule-save').click(saveSchedule)
+$('.stu-schedule-commit').click(commitSchedule)
+$('.stu-schedule-delete').click(deleteSchedule)
+
+function addSchedule(){
+    $.ajax({
+        url:`${address}/addSchedule`,
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        type:'post',
+        success:(res)=>{
+            if(res.code == 200){
+                alert('create successfully!')
+                getSchedule()
+            }else{
+                alert('create failed!',res.message)
+            }
+        }
+    })
+}
+
+function deleteSchedule(){
+    if(!confirm('Are you sure to delete the schedule?\nYou will lose all courses selected! \nYou can create a new schedule later.')){
+        return
+    }
+
+    $.ajax({
+        url:`${address}/deleteSchedule`,
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        type:'post',
+        success:(res)=>{
+            if(res.code == 200){
+                alert('delete successfully')
+                getSchedule()
+            }else{
+                alert('delete failed!',code.message)
+            }
+        }
+    })
+}
+
+function commitSchedule(){
+
+}
+
+function saveSchedule(){
+    let list = packList()
+    $.ajax({
+        url:`${address}/saveSchedule`,
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        data:{
+            course_list:list
+        },
+        type:'post',
+        success:(res)=>{
+            if(res.code == 200){
+                alert('succefully!')
+                getSchedule()
+            }
+        }
+    })
+}
+
+function packList(){
+    let list = []
+    for(let item of acceptedList){
+        list.push({
+            cid:item.cid,
+            state:1,
+            type:0
+        })
+    }
+
+    for(let item of uncommitedList){
+        list.push({
+            cid:item.cid,
+            state:0,
+            type:0
+        })
+    }
+
+    if(backup1){
+        list.push({
+            cid:backup1.cid,
+            state:0,
+            type:1
+        })
+    }
+
+    if(backup2){
+        list.push({
+            cid:backup2.cid,
+            state:0,
+            type:2
+        })
+    }
+    return list
+}
 
 function getGrades(){
     $.ajax({
