@@ -87,8 +87,8 @@ app.get('/getGrades', getGrades)
 setGrades = require('./server/set_grades.js')
 app.post('/setGrades', setGrades)
 
-// openRegister = require('./server/open_register.js')
-// app.post('/openRegister', openRegister)
+openRegister = require('./server/open_register.js')
+app.post('/openRegister', openRegister)
 
 // closeRegister = require('./server/close_register.js')
 // app.post('/closeRegister', closeRegister)

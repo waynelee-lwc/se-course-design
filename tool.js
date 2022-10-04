@@ -70,6 +70,9 @@ function old_pro_id(id) {
 }
 
 var sys_semester = 45
+var start_time = ""
+var end_time = ""
+var sys_name = ""
 
 function sys_init() {
 	var fs = require('fs')
@@ -90,4 +93,7 @@ module.exports = {
 	"old_pro_id": old_pro_id,
 	"sys_semester": sys_semester,
 	"sys_init": sys_init,
+	"start_time": start_time,
+	"end_time": end_time,
+	"sys_name": sys_name
 }
