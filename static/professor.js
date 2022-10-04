@@ -151,16 +151,85 @@ function courseTaken(){
                             <td>${item.dept}</td>
                             <td>${item.price}$</td>
                             <td>${item.credit}</td>
-                            <td>${item.stu_num}</td>
+                            <td>${item.stu_num_accepted}</td>
                             <td>Available</td>
                             <td><button class="btn btn-warning">Cancel</button></td>
-                            <td><button class="btn btn-success">Set Grades</button></td>
+                            <td><button class="btn btn-success course-grade" id="course-grade-${item.cid}">Set Grades</button></td>
                         </tr>
                     `))
                 }
                 refreshView()
+                $('.course-grade').click(courseSetGrade)
             }else{
                 // alert(`load selected courses failed! ${res.message}`)
+            }
+        }
+    })
+}
+
+function courseSetGrade(){
+    let id = $(this).attr('id').split('-')[2]
+    id = Number.parseInt(id)
+
+    $.ajax({
+        url:`${address}/courseStudentList`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        data:{
+            id:id
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                $('.grade-table tbody').empty()
+
+                for(let item of res.data){
+                    $('.grade-table tbody').append($(`
+                    <tr>
+                        <td>${item.sid}</td>
+                        <td>${item.name}</td>
+                        <td><input type="number" value="${item.grade}"></td>
+                        <td><button class="btn btn-primary submit-grade" id="submit-grade-${item.sid}">update</button></td>
+                    </tr>
+                    `))
+                }
+
+                $('.submit-grade').click(submitGrade)
+                showGrade()
+            }else{
+                alert(`fetch student list failed! ${res.message}`)
+            }
+        }
+
+    })
+
+
+}
+
+function submitGrade(){
+    let id = $(this).attr('id').split('-')[2]
+    let val = $(this).val()
+
+    if(val < 0 || val > 100){
+        alert('invaild grade!',val)
+        return
+    }
+    $.ajax({
+        url:`${address}/setGrades`,
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        data:{
+            cid:id,
+            grade:val
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                alert('successfully!')
+                courseSetGrade()
+            }else{
+                alert(`failed! ${res.message}`)
             }
         }
     })
