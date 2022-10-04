@@ -165,7 +165,22 @@ function getGrades(){
             'token':JSON.parse(localStorage.getItem('token')),
         },
         success:(res)=>{
-            console.log(res)
+            if(res.code == 200){
+                $('.stu-grades tbody').empty()
+                let list = res.data
+                for(let item of list){
+                    $('.stu-grades tbody').append($(`
+                    <tr>
+                        <td>${item.cid}</td>
+                        <td>${item.name}</td>
+                        <td>${item.dept}</td>
+                        <td>${item.professor_name}</td>
+                        <td>${item.price}$</td>
+                        <td>${item.grades}</td>
+                    </tr>
+                    `))
+                }
+            }
         }
     })
 }
