@@ -137,19 +137,43 @@ function deleteSchedule(){
 }
 
 function commitSchedule(){
+    let list = packList()
     $.ajax({
-        url:`${address}/submitSchedule`,
+        url:`${address}/saveSchedule`,
         headers:{
             'token':JSON.parse(localStorage.getItem('token')),
+        },
+        data:{
+            course_list:list
         },
         type:'post',
         success:(res)=>{
             if(res.code == 200){
-                alert('succefully!')
-                getSchedule()
-                getCourseList()
+                $.ajax({
+                    url:`${address}/submitSchedule`,
+                    headers:{
+                        'token':JSON.parse(localStorage.getItem('token')),
+                    },
+                    type:'post',
+                    success:(res)=>{
+                        if(res.code == 200){
+                            alert('succefully!')
+                            getSchedule()
+                            getCourseList()
+                            if(res.data){
+                                let str = ''
+                                for(let pair of res.data){
+                                    str += JSON.stringify(pair) + '\n'
+                                }
+                                alert('There are conflicts between courses below:\n' + str)
+                            }
+                        }else{
+                            alert(`failed! ${res.message}`)
+                        }
+                    }
+                })
             }else{
-                alert(`failed! ${res.message}`)
+                alert(`save failed! ${res.message}`)
             }
         }
     })
