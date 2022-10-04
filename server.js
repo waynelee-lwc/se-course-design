@@ -74,11 +74,11 @@ app.get('/getStuCourses', getStuCourses)
 // getProCourses = require('./server/get_proCourses.js')
 // app.get('/getProCourses', getStuCourses) 
 
-// getGrades = require('./server/get_grades.js')
-// app.get('/getGrades', getGrades)
+getGrades = require('./server/get_grades.js')
+app.get('/getGrades', getGrades)
 
-// setGrades = require('./server/set_grades.js')
-// app.post('/setGrades', setGrades)
+setGrades = require('./server/set_grades.js')
+app.post('/setGrades', setGrades)
 
 // openRegister = require('./server/open_register.js')
 // app.post('/openRegister', openRegister)
