@@ -90,6 +90,9 @@ app.post('/setGrades', setGrades)
 openRegister = require('./server/open_register.js')
 app.post('/openRegister', openRegister)
 
+getSysStatus = require('./server/get_sysStatus.js')
+app.get('/getSysStatus', getSysStatus)
+
 // closeRegister = require('./server/close_register.js')
 // app.post('/closeRegister', closeRegister)
 

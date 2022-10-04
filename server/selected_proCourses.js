@@ -16,8 +16,10 @@ async function selectedProCourses(req,res){
         return
     }
 
-    var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    var sql = mysql.format("select * from course_professor_timeslot where pid = ? and semester = ?", [id, tool.sys_semester])
+    var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3]
+    var ls = tool.get_sys_info() 
+
+    var sql = mysql.format("select * from course_professor_timeslot where pid = ? and semester = ?", [id, ls[0]])
     var result = await query(sql)
     if (result.status == 0) {
         res.send({

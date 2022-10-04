@@ -81,6 +81,14 @@ function sys_init() {
 	sys_config_data = JSON.parse(sys_config_data)
 
 	sys_semester = sys_config_data.semester
+	start_time = sys_config_data.start_time
+	end_time = sys_config_data.end_time
+	sys_name = sys_config_data.sys_name	
+	console.log(sys_config_data.sys_name,sys_name)
+}
+
+function get_sys_info() {
+	return [sys_semester, start_time, end_time, sys_name]
 }
 
 module.exports = {
@@ -95,5 +103,6 @@ module.exports = {
 	"sys_init": sys_init,
 	"start_time": start_time,
 	"end_time": end_time,
-	"sys_name": sys_name
+	"sys_name": sys_name,
+	"get_sys_info": get_sys_info,
 }
