@@ -28,19 +28,17 @@ $(document).ready(()=>{
         location.href('/index.html')
     }
 
-    // $('.userinfo').empty()
-    // $('.userinfo').html(
-    //     `<b>${user.dept_name}</b>&nbsp;学院<br>&nbsp;<b>${user.name}</b>&nbsp;同学`
-    // )
-
-    // $('.phone input').val(user.phone)
-    // $('.email input').val(user.email)
-
     // profile
     setProfile()
 
     // 更新schedule
     getSchedule()
+
+    //选课列表
+    getCourseList()
+
+    //获取成绩
+    getGrades()
 
     // //选课列表
     // reloadTakable()
@@ -53,6 +51,32 @@ $(document).ready(()=>{
     
 })
 
+
+function getGrades(){
+    $.ajax({
+        url:`${address}/getGrades`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            console.log(res)
+        }
+    })
+}
+
+function getCourseList(){
+    $.ajax({
+        url:`${address}/getStuCourses`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            console.log(res)
+        }
+    })
+}
 
 $('.search-submit').click(reloadTakable)
 
@@ -126,7 +150,7 @@ function refreshScheduleList(){
             <td>${item.cid}</td>
             <td>${item.name}</td>
             <td>${item.dept}</td>
-            <td>${item.professor_name}</td>
+            <td>${item.professor_name == null ? 'no prefessor ':item.professor_name}</td>
             <td>${item.price}$</td>
             <td>Accepted</td>
             <td><button id="course-cancel-${item.cid}" class="course-cancel-ac btn btn-danger">Cancel</button></td>
@@ -144,7 +168,7 @@ function refreshScheduleList(){
             <td>${item.cid}</td>
             <td>${item.name}</td>
             <td>${item.dept}</td>
-            <td>${item.professor_name}</td>
+            <td>${item.professor_name == null ? 'no prefessor ':item.professor_name}</td>
             <td>${item.price}$</td>
             <td>Uncommited</td>
             <td><button id="course-cancel-${item.cid}" class="course-cancel-uc btn btn-warning">Cancel</button></td>
@@ -160,7 +184,7 @@ function refreshScheduleList(){
             <td>${backup1.cid}</td>
             <td>${backup1.name}</td>
             <td>${backup1.dept}</td>
-            <td>${backup1.professor_name}</td>
+            <td>${backup1.professor_name == null ? 'no prefessor ':backup1.professor_name}</td>
             <td>${backup1.price}$</td>
             <td>Backup1</td>
             <td><button id="course-cancel-${backup1.cid}" class="course-cancel-bk1 btn btn-primary">Cancel</button></td>
@@ -176,7 +200,7 @@ function refreshScheduleList(){
             <td>${backup2.cid}</td>
             <td>${backup2.name}</td>
             <td>${backup2.dept}</td>
-            <td>${backup2.professor_name}</td>
+            <td>${backup2.professor_name == null ? 'no prefessor ':backup2.professor_name}</td>
             <td>${backup2.price}$</td>
             <td>Backup2</td>
             <td><button id="course-cancel-${backup2.cid}" class="course-cancel-bk2 btn btn-primary">Cancel</button></td>
@@ -310,7 +334,7 @@ function reloadTakable(){
                             <td>${sec.title}</td>
                             <td>${sec.course_type}</td>
                             <td>${sec.dept_name}</td>
-                            <td>${sec.professor_names}</td>
+                            <td>${sec.professor_name == 'null' ? 'no prefessor ':professor_names}</td>
                             <td>${sec.year} ${sec.semester}</td>
                             <td>${sec.teacher_names}</td>
                             <td><button class="btn btn-primary check-schedule" id="${idx}-${sec.sec_id}">查看</button></td>
