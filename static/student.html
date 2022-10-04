@@ -6,59 +6,6 @@
         <link rel="stylesheet" href="student.css">
     </head>
     <body>
-        <!-- <div class="shadow" style="display: none;">
-            <div class="schedule">
-                <div class="cross">X</div>
-                <div class="schedule-title">
-                    <div class="name">数据库课程设计</div>
-                    <div class="teachers">Zhang</div>
-                    <div class="type">必修课</div>
-                    <div class="dept">计算机</div>
-                    <div class="semester">2022 Fall</div>
-                </div>
-                <div class="schedule-table">
-                    <div class="schetab-col">
-                        <div class="schetab-row schetab-row-head"></div>
-                        <div class="schetab-row schetab-row-head">第一节</div>
-                        <div class="schetab-row schetab-row-head">第二节</div>
-                        <div class="schetab-row schetab-row-head">第三节</div>
-                        <div class="schetab-row schetab-row-head">第四节</div>
-                        <div class="schetab-row schetab-row-head">第五节</div>
-                        <div class="schetab-row schetab-row-head">第六节</div>
-                        <div class="schetab-row schetab-row-head">第七节</div>
-                        <div class="schetab-row schetab-row-head">第八节</div>
-                        <div class="schetab-row schetab-row-head">第九节</div>
-                        <div class="schetab-row schetab-row-head">第十节</div>
-                        <div class="schetab-row schetab-row-head">第十一节</div>
-                    </div>
-                    <div class="schetab-col">
-                        <div class="schetab-row schetab-row-head">星期一</div>
-
-                        <div class="schetab-row schetab-row-inuse"></div>
-                        <div class="schetab-row schetab-row-inuse"></div>
-                        <div class="schetab-row schetab-row-blank"></div>
-                        <div class="schetab-row schetab-row-blank"></div>
-
-                        <div class="schetab-row schetab-row-inuse"></div>
-                        <div class="schetab-row schetab-row-inuse"></div>
-                        <div class="schetab-row schetab-row-inuse"></div>
-                        <div class="schetab-row schetab-row-inuse"></div>
-
-                        <div class="schetab-row schetab-row-multi"></div>
-                        <div class="schetab-row schetab-row-multi"></div>
-                        <div class="schetab-row schetab-row-multi"></div>
-                    </div>
-                </div>
-                <div class="schedule-panel">
-                    <div class="begin-week">从第<b>1</b> 周开始</div>
-                    <div class="end-week">到第<b>10</b>周结束</div>
-                    <div class="building">教学楼:<b>逸夫楼</b></div>
-                    <div class="classroom">教室:<b>第十一阶梯</b></div>
-                    <button class="btn btn-primary show-history">展示已选课程</button>
-                </div>
-            </div>
-        
-        </div> -->
         <div class="main">
             <div class="row" style="height: 100%;margin: 0rem;">
                 <div class="user-info col-lg-2">
@@ -108,6 +55,24 @@
                                 <div class="schetab-row schetab-row-multi"></div>
                             </div> -->
                             
+                        </div>
+                        <div class="schedule-legend-wrapper">
+                            <div class="schedule-legend">
+                                <b>Accepted</b>
+                                <div class="schetab-row-inuse"></div>
+                            </div>
+                            <div class="schedule-legend">
+                                <b>Uncommited</b>
+                                <div class="schetab-row-available"></div>
+                            </div>
+                            <div class="schedule-legend">
+                                <b>Conflict</b>
+                                <div class="schetab-row-unavailable"></div>
+                            </div>
+                            <div class="schedule-legend">
+                                <b>Available</b>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,7 +132,7 @@
                             </div>
 
 
-                            <div class="stu-schedule">
+                            <div class="stu-schedule" style="display: none;">
                                 <div class="title">My schedule</div>
                                 <div class="operation">
                                     <button class="stu-schedule-save btn btn-warning">Save</button>
@@ -227,7 +192,7 @@
                                 </table>
                             </div>
 
-                            <div class="stu-create-schedule">
+                            <div class="stu-create-schedule" style="display: none;">
                                 <h2>You don't have any schedule available, please create one first!</h2>
                                 <button class="btn btn-success">Create a schedule</button>
                             </div>

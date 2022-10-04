@@ -64,7 +64,7 @@ function refreshView(){
 }
 
 function parseSchedule(schedule){
-    console.log(schedule)
+    // console.log(schedule)
     let res = []
     let keys = ['','monday','tuesday','wednesday','thursday','friday','saturday','sunday']
     for(let i = 1;i <= 7;i++){
@@ -76,15 +76,42 @@ function parseSchedule(schedule){
             res[i][j] = Number.parseInt(v)
         }
     }
-    console.log(res)
+    // console.log(res)
     return res
 }
 
 function setCurrTable(table){
-    initCurrTable()
+    // initCurrTable()
     for(let i = 1;i <= 7;i++){
         for(let j = 1;j <= 11;j++){
             currTable[i][j] += table[i][j]
+        }
+    }
+}
+
+function unsetCurrTable(table){
+    for(let i = 1;i <= 7;i++){
+        for(let j = 1;j <= 11;j++){
+            currTable[i][j] -= table[i][j]
+            currTable[i][j] = currTable[i][j] < 0 ? 0 : currTable[i][j]
+        }
+    }
+}
+
+function setHistoryTable(table){
+    // initHistoryTable()
+    for(let i = 1;i <= 7;i++){
+        for(let j = 1;j <= 11;j++){
+            historyTable[i][j] += table[i][j]
+        }
+    }
+}
+
+function unsetHistoryTable(table){
+    for(let i = 1;i <= 7;i++){
+        for(let j = 1;j <= 11;j++){
+            historyTable[i][j] -= table[i][j]
+            historyTable[i][j] = historyTable[i][j] < 0 ? 0 : historyTable[i][j]
         }
     }
 }

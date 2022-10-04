@@ -15,6 +15,11 @@ $('.schetab-cell').click(function(e){
 let address = 'http://www.wayne-lee.cn:3012'
 
 let user = {}
+let scheduleList = []   //course list
+let acceptedList = []
+let uncommitedList = []
+let backup1 = {}
+let backup2 = {}
 
 $(document).ready(()=>{
     let token = JSON.parse(localStorage.getItem('token'))
@@ -49,7 +54,6 @@ $(document).ready(()=>{
 })
 
 
-$('.cross').click(hideShadow)
 $('.search-submit').click(reloadTakable)
 
 function getSchedule(){
@@ -65,7 +69,46 @@ function getSchedule(){
         success:(res)=>{
             console.log(res)
             if(res.code == 200){
+                $('.stu-schedule').show()
+                let list = res.data
 
+                acceptedList = []
+                uncommitedList = []
+                backup1 = undefined
+                backup2 = undefined
+                //append accepted courses
+                for(let item of list){
+                    if(item.type == 0 && item.state == 1){
+                        acceptedList.push(item)
+                    }
+                }
+                
+                
+
+                //append uncommited courses
+                for(let item of list){
+                    if(item.type == 0 && item.state == 0){
+                        uncommitedList.push(item)
+                    }
+                }
+
+                //append backup courses1
+                for(let item of list){
+                    if(item.type == 1){
+                        backup1 = item
+                    }
+                }
+
+                //append backup courses2
+                for(let item of list){
+                    if(item.type == 2){
+                        backup2 = item
+                    }
+                }
+
+                refreshScheduleList()
+                refreshScheduleTable()
+                
             }else{
                 $('.stu-create-schedule').show()
             }
@@ -73,16 +116,145 @@ function getSchedule(){
     })
 }
 
+function refreshScheduleList(){
+
+    $('.stu-schedule tbody').empty()
+    //append accepted list
+    for(let item of acceptedList){
+        $('.stu-schedule tbody').append($(`
+        <tr>
+            <td>${item.cid}</td>
+            <td>${item.name}</td>
+            <td>${item.dept}</td>
+            <td>${item.professor_name}</td>
+            <td>${item.price}$</td>
+            <td>Accepted</td>
+            <td><button id="course-cancel-${item.cid}" class="course-cancel-ac btn btn-danger">Cancel</button></td>
+        </tr>
+        `))
+    }
+    $('.course-cancel-ac').click(cancelAc)
+    
+    
+
+    //append uncommited courses
+    for(let item of uncommitedList){
+        $('.stu-schedule tbody').append($(`
+        <tr>
+            <td>${item.cid}</td>
+            <td>${item.name}</td>
+            <td>${item.dept}</td>
+            <td>${item.professor_name}</td>
+            <td>${item.price}$</td>
+            <td>Uncommited</td>
+            <td><button id="course-cancel-${item.cid}" class="course-cancel-uc btn btn-warning">Cancel</button></td>
+        </tr>
+        `))
+    }
+    $('.course-cancel-uc').click(cancelUc)
+
+    //append backup courses1
+    if(backup1){
+        $('.stu-schedule tbody').append($(`
+        <tr>
+            <td>${backup1.cid}</td>
+            <td>${backup1.name}</td>
+            <td>${backup1.dept}</td>
+            <td>${backup1.professor_name}</td>
+            <td>${backup1.price}$</td>
+            <td>Backup1</td>
+            <td><button id="course-cancel-${backup1.cid}" class="course-cancel-bk1 btn btn-primary">Cancel</button></td>
+        </tr>
+        `))
+    }
+    $('.course-cancel-bk1').click(cancelBk1)
+
+    //append backup courses2
+    if(backup2){
+        $('.stu-schedule tbody').append($(`
+        <tr>
+            <td>${backup2.cid}</td>
+            <td>${backup2.name}</td>
+            <td>${backup2.dept}</td>
+            <td>${backup2.professor_name}</td>
+            <td>${backup2.price}$</td>
+            <td>Backup2</td>
+            <td><button id="course-cancel-${backup2.cid}" class="course-cancel-bk2 btn btn-primary">Cancel</button></td>
+        </tr>
+        `))
+    }
+    $('.course-cancel-bk2').click(cancelBk2)
+}
+
+function cancelAc(){
+    let id = $(this).attr('id').split('-')[2]
+
+    for(let idx in acceptedList){
+        if(acceptedList[idx].cid == id){
+            if(confirm(`Are you sure to cancel the accepted course ${id} ${acceptedList[idx].name}?`)){
+                acceptedList.splice(idx,1)
+                break
+            }
+        }
+    }
+    refreshScheduleList()
+    refreshScheduleTable()
+
+}
+
+function cancelUc(){
+    let id = $(this).attr('id').split('-')[2]
+
+    for(let idx in uncommitedList){
+        if(uncommitedList[idx].cid == id){
+            if(confirm(`Are you sure to cancel the uncommited course ${id} ${uncommitedList[idx].name}?`)){
+                uncommitedList.splice(idx,1)
+                break
+            }
+        }
+    }
+    refreshScheduleList()
+    refreshScheduleTable()
+}
+
+function cancelBk1(){
+    backup1 = backup2
+    cancelBk2()
+    refreshScheduleList()
+    refreshScheduleTable()
+}
+
+function cancelBk2(){
+    backup2 = undefined
+    refreshScheduleList()
+    refreshScheduleTable()
+}
+
+function refreshScheduleTable(){
+    initCurrTable()
+    initHistoryTable()
+    for(let item of acceptedList){
+        setHistoryTable(parseSchedule(item))
+    }
+    for(let item of uncommitedList){
+        setCurrTable(parseSchedule(item))
+    }
+    refreshView()
+}
+
 function setProfile(){
     $.ajax({
         url:`${address}/profile`,
         type:'get',
         headers:{
-            // 'token':JSON.parse(localStorage.getItem('token')),
-            'token':'student',
+            'token':JSON.parse(localStorage.getItem('token')),
+            // 'token':'student',
         },
         success:function(res){
-            console.log(res)
+            if(res.code != 200){
+                alert(`please login!`)
+                location.href = '/index.html'
+            }
             user = res.data
             $('.userinfo ul').empty()
             $('.userinfo ul').append($(`
@@ -92,60 +264,6 @@ function setProfile(){
                 <li class="userinfo-item">Graduation&nbsp;&nbsp;<b>${user.dept}</b></li>
                 <li class="userinfo-item">SSN&nbsp;&nbsp;<b>${user.ssn}</b></li>
             `))
-        }
-    })
-}
-
-let historyTakes = []
-function loadSchedule(){
-    $.ajax({
-        url:`${address}/student/take_list`,
-        type:'get',
-        headers:{
-            token:JSON.parse(localStorage.getItem('token'))
-            // token:'student'
-        },
-        success:function(res){
-            historyTakes = res.data
-        }
-    })
-}
-
-function hideShadow(){
-    $('.shadow').hide()
-}
-
-function showShadow(){
-    $('.shadow').show()
-}
-
-function loadGrades(){
-    $.ajax({
-        url:`${address}/student/take_score_list`,
-        type:'get',
-        headers:{
-            token:JSON.parse(localStorage.getItem('token'))
-            // token:'student'
-        },
-        success:function(res){
-            if(res.code != 200){
-                alert('获取成绩失败!' + res.message)
-            }else{
-                $('.score-table tbody').empty()
-                for(let course of res.data){
-                    $('.score-table tbody').append($(`
-                        <tr>
-                            <td>${course.course_id}</td>
-                            <td>${course.title}</td>
-                            <td>${course.course_type}</td>
-                            <td>${course.dept_name}</td>
-                            <td>${course.credits}</td>
-                            <td>${course.first_grade}</td>
-                            <td>${course.max_grade}</td>
-                        </tr>
-                    `))
-                }
-            }
         }
     })
 }
@@ -192,7 +310,7 @@ function reloadTakable(){
                             <td>${sec.title}</td>
                             <td>${sec.course_type}</td>
                             <td>${sec.dept_name}</td>
-                            <td>${sec.credits}</td>
+                            <td>${sec.professor_names}</td>
                             <td>${sec.year} ${sec.semester}</td>
                             <td>${sec.teacher_names}</td>
                             <td><button class="btn btn-primary check-schedule" id="${idx}-${sec.sec_id}">查看</button></td>

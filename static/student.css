@@ -53,6 +53,10 @@ body{
     border-top: 1px solid gray;
     /* padding-top: 2rem; */
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .profile-wrapper{
@@ -213,4 +217,29 @@ body{
     width: 80%;
     text-align: center;
     
+}
+
+.schedule-legend-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.schedule-legend{
+    width: 38%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.schedule-legend b{
+    font-size: 0.875rem;
+}
+
+.schedule-legend div{
+    height: 1rem;
+    width: 1rem;
+    /* margin-left: 1rem; */
+    border: 1px solid;
 }

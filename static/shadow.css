@@ -59,13 +59,13 @@
 } */
 
 .schedule-table{
-    position: absolute;
+    /* position: absolute; */
     /* border: 1px solid; */
-    height: 90%;
+    height: 70%;
     width: 90%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%,-50%); */
     display: flex;
     /* margin: auto;*/
 }
@@ -91,8 +91,9 @@
 }
 .schetab-row{
     width: 100%;
-    height: 8.5%;
+    height: 8.35%;
     border-bottom: 1px solid;
+    flex-shrink: 0;
 }
 
 .schetab-row:hover{
