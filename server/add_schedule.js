@@ -16,7 +16,7 @@ async function addSchedule(req,res){
     }
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
     
-    var sql = mysql.format("insert into schedule(sid, semester) values (?,?)",[id, 45])
+    var sql = mysql.format("insert into schedule(sid, semester) values (?,?)",[id, tool.sys_semester])
     var result = await query(sql)
     console.log(result)
 

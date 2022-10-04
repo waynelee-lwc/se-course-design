@@ -69,6 +69,17 @@ function old_pro_id(id) {
 	return Number(id.substring(len-8, len)) 	
 }
 
+var sys_semester = 45
+
+function sys_init() {
+	var fs = require('fs')
+	var sys_config_path = './sys_config.json'
+	var sys_config_data = fs.readFileSync(sys_config_path)
+	sys_config_data = JSON.parse(sys_config_data)
+
+	sys_semester = sys_config_data.semester
+}
+
 module.exports = {
 	"token_list": token_list,
 	"get_role_info": get_role_info,
@@ -77,4 +88,6 @@ module.exports = {
 	"new_pro_id": new_pro_id,
 	"old_stu_id": old_stu_id,
 	"old_pro_id": old_pro_id,
+	"sys_semester": sys_semester,
+	"sys_init": sys_init,
 }

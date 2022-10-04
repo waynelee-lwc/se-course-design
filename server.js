@@ -2,6 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var multiparty = require('connect-multiparty')
 var cors = require('cors')
+var tool = require('./tool.js')
 
 let app = express()
 app.use(cors())
@@ -74,6 +75,12 @@ app.get('/getStuCourses', getStuCourses)
 // getProCourses = require('./server/get_proCourses.js')
 // app.get('/getProCourses', getStuCourses) 
 
+// selectedProCourses = require('./server/selected_proCourses.js')
+// app.get('/selectedProCourses', selectedProCourses)
+
+courseStudentList = require('./server/courseStudentList.js')
+app.get('/courseStudentList', courseStudentList)
+
 getGrades = require('./server/get_grades.js')
 app.get('/getGrades', getGrades)
 
@@ -88,6 +95,8 @@ app.post('/setGrades', setGrades)
 
 // teach = require('./server/teach.js')
 // app.post('/teach', teach)
+
+tool.sys_init()
 
 let server = app.listen(3012,()=>{
     console.log('The server is listening on port : 3012')
