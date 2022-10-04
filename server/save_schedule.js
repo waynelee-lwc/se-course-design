@@ -25,10 +25,11 @@ async function saveSchedule(req,res){
     console.log(sql, '\n', result)
     result = JSON.parse(JSON.stringify(result))
     
-    sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
-    result = await query(sql)
-
-    // console.log(sql, '\n', result)
+    if (result.length > 0) {
+        sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
+        result = await query(sql)
+        console.log(sql, '\n', result)
+    }
 
     if (result.status == 0) {
         res.send({
