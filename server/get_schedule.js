@@ -42,11 +42,14 @@ async function getSchedule(req,res){
         return
     }
 
-    sql = mysql.format("select * " + 
-        " from course join course_schedule on course.cid = course_schedule.cid " + 
-                    " join time_slot on course.tsid = time_slot.tsid " +
-                    " join schedule on schedule.sche_id = course_schedule.sche_id " + 
-        " where schedule.sid = ? ", [id])
+    sql = mysql.format(" SELECT *, course.name as course_name "  + 
+                        " FROM " +
+                        "   course " + 
+                        "   JOIN course_schedule ON course.cid = course_schedule.cid "  + 
+                        "   JOIN time_slot ON course.tsid = time_slot.tsid " + 
+                        "   JOIN schedule ON schedule.sche_id = course_schedule.sche_id " + 
+                        "   JOIN ( SELECT professor.name as professor_name, teach.cid FROM teach JOIN professor ON teach.pid = professor.pid ) AS tmp ON tmp.cid = course.cid " + 
+                        " WHERE schedule.sid = ? ", [id])
     result = await query(sql)
     // console.log(sql)
     // console.log(result)

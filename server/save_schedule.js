@@ -16,14 +16,18 @@ async function saveSchedule(req,res){
     }
 
     var courseList = data.course_list
-
-
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    var sql = mysql.format("", [id])
+    var sql = ""
+    var result = ""
+    
+    sql = mysql.format("select from schedule where sid = ? ", [id])
+    result = await query(sql)
+    console.log(sql, '\n', result)
 
-    var result = await query(sql)
-    // console.log(sql)
-    // console.log(result)
+    sql = mysql.format("delete from course_schedule where sche_id = ? ", [data.sche_id])
+    result = await query(sql)
+
+    // console.log(sql, '\n', result)
 
     if (result.status == 0) {
         res.send({
