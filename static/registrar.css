@@ -230,3 +230,15 @@ body{
 td{
     padding: 0.5rem 0rem !important;
 }
+
+.open-reg-form{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    height: 17rem;
+    justify-content: space-around;
+}

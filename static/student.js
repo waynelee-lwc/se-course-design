@@ -306,7 +306,14 @@ function courseSelect(){
     for(let item of courseList){
         if(item.cid == id){
             uncommitedList.push(item)
-            console.log(item)
+            
+            if(backup1 && backup1.cid == id){
+                backup1 = backup2
+                backup2 = undefined
+            }
+            if(backup2 && backup2.cid == id){
+                backup2 = undefined
+            }
             break
         }
     }
@@ -321,10 +328,10 @@ function courseBackup(){
     id = Number.parseInt(id)
     console.log(id)
 
-    if(acceptedList.length + uncommitedList.length >= 4){
-        alert(`you can't select more than 4 courses!`)
-        return
-    }
+    // if(acceptedList.length + uncommitedList.length >= 4){
+    //     alert(`you can't select more than 4 courses!`)
+    //     return
+    // }
 
     for(let item of courseList){
         if(item.cid == id){
@@ -390,6 +397,7 @@ function getSchedule(){
                 refreshScheduleList()
                 refreshScheduleTable()
                 
+                getCourseList() 
             }else{
                 $('.stu-create-schedule').show()
             }
@@ -519,7 +527,7 @@ function refreshScheduleTable(){
         setHistoryTable(parseSchedule(item))
     }
     for(let item of uncommitedList){
-        setCurrTable(parseSchedule(item))
+        setHistoryTable(parseSchedule(item))
     }
     refreshView()
 }

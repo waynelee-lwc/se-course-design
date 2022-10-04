@@ -12,7 +12,9 @@ $(document).ready(()=>{
         alert('Please login!')
         location.href('/index.html')
     }
- 
+    //system status
+    systemStatus()
+
     // 校验权限
     checkProfile()
 
@@ -43,6 +45,7 @@ $(document).ready(()=>{
     // //课程列表
     // loadCourseList()
 })
+
 
 $('.profile-submit').on('click',function(){
 
@@ -86,6 +89,36 @@ $('.create-course-submit').click(professorList)
 $('.cross').click(hideShadow)
 $('.stu-add-submit').click(addStudent)
 $('.pro-add-submit').click(addProfessor)
+$('.submit-open-registration').click(submitOpenReg)
+
+function submitOpenReg(){
+    let name = $('.open-reg-form .name').val()
+    let stdate = $('.open-reg-form .start-date').val()
+    let endate = $('.open-reg-form .end-date').val()
+
+    $.ajax({
+        url:`${address}/openRegister`,
+        type:'post',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        data:{
+            sys_name:name,
+            start_time:stdate,
+            end_time:endate,
+            semester:45,
+            state:1
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                alert('successfully!')
+                location.reload()
+            }else{
+                alert(`failed! ${res.message}`)
+            }
+        }
+    })
+}
 
 function professorList(){
     let name = $('.search-bar-wrapper .stu_name input').val()
@@ -130,6 +163,35 @@ function professorList(){
 
             $('.pro-update-button').click(updateProfessor)
             $('.pro-delete-button').click(deleteProfessor)
+        }
+    })
+}
+
+let sysstat = {}
+function systemStatus(){
+    $.ajax({
+        url:`${address}/getSysStatus`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            console.log(res)
+            if(res.code == 200){
+                $('.registration').empty()
+                $('.registration').append($(`
+                <ul>
+                    <li class="userinfo-item">Registration &nbsp;&nbsp; <br><b>${res.data.sys_name}</b></li>
+                    <li class="userinfo-item">Begin &nbsp;&nbsp;<b>${res.data.start_time}</b></li>
+                    <li class="userinfo-item">End &nbsp;&nbsp;<b>${res.data.end_time}</b></li>
+                    <li class="userinfo-item">State &nbsp;&nbsp;<b>${res.data.state == 0 ? 'Off' : 'On'}</b></li>
+                </ul>
+                <button class="btn btn-primary open-registration" ${res.data.state == 0 ? '': 'disabled'}>Open Registration</button>
+                <button class="btn btn-danger close-registration" ${res.data.state == 1 ? '': 'disabled'}>Close Registration</button>
+                `))
+                sysstat = res.data
+            }
+            $('.open-registration').click(showShadowSection)
         }
     })
 }
