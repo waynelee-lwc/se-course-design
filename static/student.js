@@ -27,6 +27,8 @@ $(document).ready(()=>{
         alert('请先登录!')
         location.href('/index.html')
     }
+    //system status
+    systemStatus()
 
     // profile
     setProfile()
@@ -55,6 +57,32 @@ $('.stu-schedule-add').click(addSchedule)
 $('.stu-schedule-save').click(saveSchedule)
 $('.stu-schedule-commit').click(commitSchedule)
 $('.stu-schedule-delete').click(deleteSchedule)
+
+let sysstat = {}
+function systemStatus(){
+    $.ajax({
+        url:`${address}/getSysStatus`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            console.log(res)
+            if(res.code == 200){
+                $('.registration').empty()
+                $('.registration').append($(`
+                <ul>
+                    <li class="userinfo-item">Registration &nbsp;&nbsp; <br><b>${res.data.sys_name}</b></li>
+                    <li class="userinfo-item">Begin &nbsp;&nbsp;<b>${res.data.start_time}</b></li>
+                    <li class="userinfo-item">End &nbsp;&nbsp;<b>${res.data.end_time}</b></li>
+                    <li class="userinfo-item">State &nbsp;&nbsp;<b>${res.data.state == 0 ? 'Off' : 'On'}</b></li>
+                </ul>
+                `))
+                sysstat = res.data
+            }
+        }
+    })
+}
 
 function addSchedule(){
     $.ajax({
