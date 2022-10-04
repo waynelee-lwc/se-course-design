@@ -19,8 +19,8 @@ token_list = {
 		"role": "student",
 		"name": "stu1"
 	},
-	"student": {
-		"id": 3,
+	"student3": {
+		"id": 21190000,
 		"role": "student",
 		"name": "stu1"
 	}

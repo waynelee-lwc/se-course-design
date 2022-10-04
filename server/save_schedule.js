@@ -23,6 +23,7 @@ async function saveSchedule(req,res){
     sql = mysql.format("select * from schedule where sid = ? ", [id])
     result = await query(sql)
     console.log(sql, '\n', result)
+
     result = JSON.parse(JSON.stringify(result))
     if (result.status == 0) {
         res.send({
@@ -31,19 +32,34 @@ async function saveSchedule(req,res){
         })
         return
     }
-    
+    var sche_id = result[0].sche_id
+
     if (result.length > 0) {
         sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
         result = await query(sql)
         console.log(sql, '\n', result)
     }
+    console.log(courseList)
+
+    if (courseList.length == 0 ) {
+        res.send({
+            "message": "保存成功",
+            "code": 200,
+            "data": result
+        })  
+        return 
+    }
 
     sql = "insert into course_schedule(sche_id, cid, state, type ) values "
-
-    for (let x of courseList) {
-        sql += mysql.format("(?,?,?) ,\n ", [])
+    for (let x in courseList) {
+        if (x > 0) {
+            sql += " , "
+        } 
+        sql += mysql.format("(?,?,?,?) \n ", [sche_id, courseList[x].cid, courseList[x].state, courseList[x].type])
     } 
-('zhanghua',13),('zhanghua',14),('zhanghua',15);
+
+    console.log(sql)
+    result = await query(sql)
 
     result = JSON.parse(JSON.stringify(result))
     res.send({
