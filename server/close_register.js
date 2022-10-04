@@ -3,7 +3,7 @@ var query = require('../db.js')
 var tool = require('../tool.js')
 var fs = require('fs')
 
-async function openRegister(req,res) {
+async function closeRegister(req,res) {
     var data = req.body
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
@@ -15,17 +15,21 @@ async function openRegister(req,res) {
         return
     }
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    fs.writeFileSync('./sys_config.json', 
-        JSON.stringify({"semester": data.semester, "start_time": data.start_time, "end_time": data.end_time, "sys_name": data.sys_name, "state": data.state})
-        )
-    
-    res.send({
-        "message": "修改系统成功",
-        "code":200
-    })
+    var sql = "", result = "",ls = tool.get_sys_info() 
 
-    res.end()
+    // 检查是否在注册
+    // res.send({
+    //     "message": "关闭失败",
+    //     "code":200
+    // })
+
+    sql = mysql.format("select * from course_professor_timeslot where semester = ? ", [ls[0]])
+    result = await query(sql)
+
+
+    // 对每门课程检查是否有教授, 并且有3个学生
+    // 
     return 
 }
 
-module.exports = openRegister
+module.exports = closeRegister

@@ -73,6 +73,7 @@ var sys_semester = 45
 var start_time = ""
 var end_time = ""
 var sys_name = ""
+var sys_state = 0
 
 function sys_init() {
 	var fs = require('fs')
@@ -84,10 +85,11 @@ function sys_init() {
 	start_time = sys_config_data.start_time
 	end_time = sys_config_data.end_time
 	sys_name = sys_config_data.sys_name	
+	sys_state = sys_config_data.state	
 }
 
 function get_sys_info() {
-	return [sys_semester, start_time, end_time, sys_name]
+	return [sys_semester, start_time, end_time, sys_name, sys_state]
 }
 
 function check_time(selectList, nowList) {
