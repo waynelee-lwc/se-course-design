@@ -125,7 +125,20 @@ function deleteSchedule(){
 }
 
 function commitSchedule(){
-
+    $.ajax({
+        url:`${address}/submitSchedule`,
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        type:'post',
+        success:(res)=>{
+            if(res.code == 200){
+                alert('succefully!')
+                getSchedule()
+                getCourseList()
+            }
+        }
+    })
 }
 
 function saveSchedule(){
