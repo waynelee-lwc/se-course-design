@@ -20,7 +20,8 @@ async function getStuCourses(req,res){
             " from (select cid, count(sche_id) as stu_num " + 
             " from course_schedule " + 
             " where state = 1 " + 
-            " group by cid) as tmp join course on course.cid = tmp.cid ")
+            " group by cid) as tmp " + 
+            " right join course on course.cid = tmp.cid ")
 
     var result = await query(sql)
     // console.log(sql, '\n', result)
@@ -34,6 +35,10 @@ async function getStuCourses(req,res){
     }
 
     result = JSON.parse(JSON.stringify(result))
+    for (let x in result) {
+        if (result[x].stu_num == null) 
+            result[x].stu_num = 0
+    }
     res.send({
         "message": "查询成功",
         "code": 200,

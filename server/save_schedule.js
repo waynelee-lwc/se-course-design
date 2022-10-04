@@ -24,13 +24,6 @@ async function saveSchedule(req,res){
     result = await query(sql)
     console.log(sql, '\n', result)
     result = JSON.parse(JSON.stringify(result))
-    
-    if (result.length > 0) {
-        sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
-        result = await query(sql)
-        console.log(sql, '\n', result)
-    }
-
     if (result.status == 0) {
         res.send({
             "message": result.msg,
@@ -38,6 +31,19 @@ async function saveSchedule(req,res){
         })
         return
     }
+    
+    if (result.length > 0) {
+        sql = mysql.format("delete from course_schedule where sche_id = ? ", [result[0].sche_id])
+        result = await query(sql)
+        console.log(sql, '\n', result)
+    }
+
+    sql = "insert into course_schedule(sche_id, cid, state, type ) values "
+
+    for (let x of courseList) {
+        sql += mysql.format("(?,?,?) ,\n ", [])
+    } 
+('zhanghua',13),('zhanghua',14),('zhanghua',15);
 
     result = JSON.parse(JSON.stringify(result))
     res.send({
