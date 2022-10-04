@@ -120,6 +120,9 @@ function check_time(selectList, nowList) {
 	return {"re": true, "rel": []}
 }
 
+function sys_if() {
+	return sys_state
+}
 
 module.exports = {
 	"token_list": token_list,
@@ -135,5 +138,6 @@ module.exports = {
 	"end_time": end_time,
 	"sys_name": sys_name,
 	"get_sys_info": get_sys_info,
-	"check_time": check_time
+	"check_time": check_time,
+	"sys_if": sys_if,
 }

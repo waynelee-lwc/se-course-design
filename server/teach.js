@@ -2,6 +2,13 @@ var mysql = require('mysql')
 var query = require('../db.js')
 var tool = require('../tool.js')
 async function teach(req,res) {
+    if (tool.sys_if() == 0) {
+        res.send({
+            "message": "未开放注册",
+            "code": 400 
+        })
+        return
+    }
     var data = req.body
     var token = req.headers.token
     var tmp = tool.token_analysis(token)

@@ -4,6 +4,14 @@ var tool = require('../tool.js')
 const random_string = require('string-random')
 
 async function courseStudentList(req,res){
+
+    if (tool.sys_if() == 0) {
+        res.send({
+            "message": "未开放注册",
+            "code": 400 
+        })
+        return
+    }
     var data = req.query
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
