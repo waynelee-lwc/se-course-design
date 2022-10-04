@@ -27,7 +27,7 @@ async function getSysStatus(req,res) {
         	"end_time": ls[2],
         	"sys_name": ls[3], 
         	"semester": ls[0],
-
+            "state": ls[4],
         }
     })
 

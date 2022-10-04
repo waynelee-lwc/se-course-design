@@ -23,7 +23,7 @@ async function closeRegister(req,res) {
     //     "code":200
     // })
 
-    sql = mysql.format("select * from course_professor_timeslot where semester = ? ", [ls[0]])
+    sql = mysql.format("select * from course_professor_timeslot where semester = ? and ", [ls[0]])
     result = await query(sql)
 
 
