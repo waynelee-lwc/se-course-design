@@ -18,9 +18,9 @@ async function submitSchedule(req,res){
 
     var courseList = data.course_list
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    var sql = "", result = "", data = ""
+    var sql = "", result = "", data = "", ls = tool.get_sys_info() 
     
-    sql = mysql.format("select * from schedule where sid = ? ", [id])
+    sql = mysql.format("select * from course_schedule_timeslot where sid = ? and semester = ? ", [id, ls[0]])
     result = await query(sql)
     result = JSON.parse(JSON.stringify(result))
     
@@ -32,13 +32,10 @@ async function submitSchedule(req,res){
         return
     }
     
-    result = await query(sql)
-    result = JSON.parse(JSON.stringify(result))
-    
     res.send({
         "message": "提交成功",
         "code": 200,
-        "data": data
+        "data": result
     })
     res.end()
     return 

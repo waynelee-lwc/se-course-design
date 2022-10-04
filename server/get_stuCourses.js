@@ -21,7 +21,8 @@ async function getStuCourses(req,res){
             " from course_schedule " + 
             " where state = 1 " + 
             " group by cid) as tmp " + 
-            " right join course on course.cid = tmp.cid ")
+            " right join course on course.cid = tmp.cid " + 
+            " join time_slot on time_slot.tsid = course.tsid")
 
     var result = await query(sql)
     // console.log(sql, '\n', result)

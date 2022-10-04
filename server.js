@@ -66,8 +66,8 @@ app.post('/saveSchedule', saveSchedule)
 deleteSchedule = require('./server/delete_schedule.js')
 app.post('/deleteSchedule', deleteSchedule)
 
-// submitSchedule = require('./server/submit_schedule.js')
-// app.post('/saveSchedule', submitSchedule)
+submitSchedule = require('./server/submit_schedule.js')
+app.post('/submitSchedule', submitSchedule)
 
 getStuCourses = require('./server/get_stuCourses.js')
 app.get('/getStuCourses', getStuCourses) 
