@@ -143,11 +143,11 @@ function teachCourse(){
             id:id
         },
         success:(res)=>{
-            if(res == 200){
+            if(res.code == 200){
                 alert('successfully!')
 
-                courseTaken()
                 courseAvailableList()
+                courseTaken()
             }else{
                 alert(`failed ${res.message}`)
             }
@@ -190,11 +190,39 @@ function courseTaken(){
                 }
                 refreshView()
                 $('.course-grade').click(courseSetGrade)
+                $('.course-cancel').click(courseCancel)
             }else{
                 // alert(`load selected courses failed! ${res.message}`)
             }
         }
     })
+}
+
+function courseCancel(){
+    let id = $(this).attr('id').split('-')[2]
+    id = Number.parseInt(id)
+    if(!confirm(`sure to cancel this course? ${id}`)){
+        return
+    }
+
+    $.ajax({
+        url:`${address}/cancelTeach`,
+        type:'post',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        data:{
+            cid:id
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                alert('successfully!')
+                courseTaken()
+            }else{
+                alert(`failed! ${res.message}`)
+            }
+        }
+    })        
 }
 
 function courseSetGrade(){
