@@ -29,7 +29,6 @@ async function cancel_teach(req,res) {
     }
 
     var sql = "", result = "", ls = tool.get_sys_info()  
-
     sql = mysql.format("delete from teach where pid = ? and cid = ? ", [id, data.cid])
     result = await query(sql)
 

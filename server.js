@@ -9,6 +9,20 @@ let app = express()
 app.use(cors())
 app.use('/',express.static('./static'))
 
+let filter = (req, res, next) => {
+    let tmp = tool.token_analysis(req.headers.token)
+    var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
+
+    console.log("\n---------------------------------------------------------")
+    console.log("role:", role, "\nname:", name)
+    console.log(req.method, " --> ", req.url)
+    if (req.method == 'GET') console.log("req.query: ", req.query)
+    if (req.method == 'POST') console.log("req.body: ", req.body)   
+    // console.log(req)
+    next()
+}
+
+
 //处理 x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended:true
@@ -19,6 +33,8 @@ app.use(bodyParser.json())
 
 //处理 mutipart/form-data
 app.use(multiparty())
+
+app.use(filter)
 
 app.get('/hello',(req,res)=>{
     res.end('hello world')

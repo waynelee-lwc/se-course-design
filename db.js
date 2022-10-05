@@ -6,6 +6,7 @@ db_config_data = JSON.parse(db_config_data)
 const pool = mysql.createPool(db_config_data)
 
 async function query(sql, values) {
+	console.log("sql: ", sql)
   	// 返回一个 Promise
  	return new Promise(( resolve, reject ) => {
 		pool.getConnection(function(err, connection) {

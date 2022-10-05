@@ -36,7 +36,7 @@ async function user_login(req,res){
         return 
     }
     result = result[0]
-    console.log(result)
+    // console.log(result)
     if(result.password != data.password) {
         res.send({
 			"message": "密码错误",

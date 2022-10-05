@@ -19,7 +19,7 @@ async function payBill(req,res) {
     sql = mysql.format("update bills set paid = 1 where sid = ?",id)
     let result = await query(sql)
 
-    console.log(result)
+    // console.log(result)
     res.send({
         "message": "",
         "code": 200,
