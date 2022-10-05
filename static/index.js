@@ -33,14 +33,16 @@ $('.login-submit').on('click',function(){
                 alert(res.message)
             }else{
                 localStorage.setItem('userinfo',JSON.stringify(res.data.user))
-                localStorage.setItem('token',JSON.stringify(res.data.token))
                 if(role == 'student'){
+                    localStorage.setItem('stu-token',JSON.stringify(res.data.token))
                     location.href = '/student.html'
                 }
                 if(role == 'professor'){
+                    localStorage.setItem('pro-token',JSON.stringify(res.data.token))
                     location.href = '/professor.html'
                 }
                 if(role == 'registrar'){
+                    localStorage.setItem('reg-token',JSON.stringify(res.data.token))
                     location.href = '/registrar.html'
                 }
             }

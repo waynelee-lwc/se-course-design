@@ -7,7 +7,7 @@ let address = 'http://www.wayne-lee.cn:3012'
 
 
 $(document).ready(()=>{
-    let token = JSON.parse(localStorage.getItem('token'))
+    let token = JSON.parse(localStorage.getItem('pro-token'))
     if(!token){
         alert('please login!')
         location.href('/index.html')
@@ -48,7 +48,7 @@ function systemStatus(){
         url:`${address}/getSysStatus`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('pro-token')),
         },
         success:(res)=>{
             console.log(res)
@@ -74,7 +74,7 @@ function courseAvailableList(){
         url:`${address}/getProCourses`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('pro-token')),
         },
         success:(res)=>{
             if(res.code == 200){
@@ -137,17 +137,17 @@ function teachCourse(){
         url:`${address}/teach`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('pro-token')),
         },
         data:{
             id:id
         },
         success:(res)=>{
-            if(res == 200){
+            if(res.code == 200){
                 alert('successfully!')
 
-                courseTaken()
                 courseAvailableList()
+                courseTaken()
             }else{
                 alert(`failed ${res.message}`)
             }
@@ -161,7 +161,7 @@ function courseTaken(){
         url:`${address}/selectedProCourses`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('pro-token')),
         },
         success:(res)=>{
             if(res.code == 200){
@@ -190,11 +190,39 @@ function courseTaken(){
                 }
                 refreshView()
                 $('.course-grade').click(courseSetGrade)
+                $('.course-cancel').click(courseCancel)
             }else{
                 // alert(`load selected courses failed! ${res.message}`)
             }
         }
     })
+}
+
+function courseCancel(){
+    let id = $(this).attr('id').split('-')[2]
+    id = Number.parseInt(id)
+    if(!confirm(`sure to cancel this course? ${id}`)){
+        return
+    }
+
+    $.ajax({
+        url:`${address}/cancelTeach`,
+        type:'post',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('pro-token')),
+        },
+        data:{
+            cid:id
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                alert('successfully!')
+                courseTaken()
+            }else{
+                alert(`failed! ${res.message}`)
+            }
+        }
+    })        
 }
 
 function courseSetGrade(){
@@ -205,7 +233,7 @@ function courseSetGrade(){
         url:`${address}/courseStudentList`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('pro-token')),
         },
         data:{
             id:id
@@ -250,7 +278,7 @@ function submitGrade(){
     $.ajax({
         url:`${address}/setGrades`,
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('pro-token')),
         },
         type:'post',
         data:{
@@ -266,7 +294,7 @@ function submitGrade(){
                     url:`${address}/courseStudentList`,
                     type:'get',
                     headers:{
-                        'token':JSON.parse(localStorage.getItem('token')),
+                        'token':JSON.parse(localStorage.getItem('pro-token')),
                     },
                     data:{
                         id:cid
@@ -307,7 +335,7 @@ function setProfile(){
         url:`${address}/profile`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('pro-token')),
         },
         success:function(res){
             if(res.code != 200){
@@ -335,7 +363,7 @@ function loadScoreList(){
         url:`${address}/teacher/get_score_list`,
         type:'get',
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('pro-token'))
             // token:'teacher'
         },
         success:function(res){
@@ -397,7 +425,7 @@ function loadGradeList(sec,sec_id){
         url:`${address}/teacher/take_score_list`,
         type:'get',
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('pro-token'))
             // token:'teacher'
         },
         data:{
@@ -458,7 +486,7 @@ function setStudentGrade(){
             grade:grade
         },
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('pro-token'))
             // token:'teacher'
         },
         success:function(res){
