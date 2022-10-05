@@ -219,11 +219,18 @@ function commitSchedule(){
                             getSchedule()
                             getCourseList()
                             if(res.data){
-                                let str = ''
-                                for(let pair of res.data){
-                                    str += JSON.stringify(pair) + '\n'
+                                // let str = ''
+                                // for(let pair of res.data){
+                                //     str += JSON.stringify(pair) + '\n'
+                                // }
+                                let conflict = res.data[0]
+                                let unavailable = res.data[1]
+                                if(conflict.length != 0){
+                                    alert('There are conflicts between courses below:\n' + JSON.stringify(conflict))
                                 }
-                                alert('There are conflicts between courses below:\n' + str)
+                                if(unavailable.length != 0){
+                                    alert(`unavailable courses because no enough seats! ${unavailable}`)
+                                }
                             }
                         }else{
                             alert(`failed! ${res.message}`)
