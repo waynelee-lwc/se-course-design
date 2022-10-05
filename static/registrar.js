@@ -121,11 +121,12 @@ function submitOpenReg(){
 }
 
 function professorList(){
-    let name = $('.search-bar-wrapper .stu_name input').val()
-    let data = {
-        name:name,
+    let name = $('.search-bar-wrapper .pro_name input').val()
+    let data = {}
+    if(name != ''){
+        data.name = name
     }
-    let id = $('.search-bar-wrapper .stu_id input').val()
+    let id = $('.search-bar-wrapper .pro_id input').val()
     if(id != ''){
         data.id = id
     }
@@ -324,8 +325,9 @@ function addProfessor(){
 
 function studentList(){
     let name = $('.search-bar-wrapper .stu_name input').val()
-    let data = {
-        name:name,
+    let data = {}
+    if(name != ''){
+        data.name = name
     }
     let id = $('.search-bar-wrapper .stu_id input').val()
     if(id != ''){
