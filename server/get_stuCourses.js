@@ -24,7 +24,8 @@ async function getStuCourses(req,res){
                 join course on course.cid = tmp.cid
                 join time_slot on time_slot.tsid = course.tsid 
                 left join (select cid as teach_cid , pid from teach ) as tt on tt.teach_cid = course.cid 
-                left join (select name as professor_name, pid from professor) as professor on professor.pid = tt.pid`)
+                left join (select name as professor_name, pid from professor) as professor on professor.pid = tt.pid
+                order by course.cid asc `)
 
     var result = await query(sql)
     // console.log(sql, '\n', result)
@@ -51,3 +52,4 @@ async function getStuCourses(req,res){
     return 
 }
 module.exports = getStuCourses
+
