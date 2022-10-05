@@ -211,6 +211,7 @@ body{
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    position: relative;
 }
 
 .stu-create-schedule button{
