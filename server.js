@@ -100,6 +100,9 @@ app.post('/closeRegister', closeRegister)
 teach = require('./server/teach.js')
 app.post('/teach', teach)
 
+cancelTeach = require('./server/cancel_teach.js')
+app.post('/cancelTeach', cancelTeach)
+
 tool.sys_init()
 
 let server = app.listen(3012,()=>{
