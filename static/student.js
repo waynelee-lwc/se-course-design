@@ -189,6 +189,13 @@ function deleteSchedule(){
 
 function commitSchedule(){
     let list = packList()
+    if(!confirm(`sure to commit the course list? \nThe system try to allocate courses you selected for you if there are still available seats and no conflict!`)){
+        return
+    }
+    if(list.length == 0){
+        alert(`you haven't selected any courses, please select courses you want first!`)
+        return
+    }
     $.ajax({
         url:`${address}/saveSchedule`,
         headers:{
