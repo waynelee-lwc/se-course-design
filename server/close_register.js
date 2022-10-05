@@ -17,6 +17,8 @@ async function closeRegister(req,res) {
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
     var sql = "", result = "",ls = tool.get_sys_info(), oL = "", wL = "", scheL = "", exL = ""
 
+    // await query("start transaction;")
+
     sql = mysql.format("select * from course_professor_timeslot join course_schedule on course_schedule.cid = course_professor_timeslot.cid join schedule on schedule.sche_id = course_schedule.sche_id where schedule.semester = ?", [ls[0]])
     result = await query(sql)
     result = JSON.parse(JSON.stringify(result))
@@ -112,7 +114,34 @@ async function closeRegister(req,res) {
     // console.log(sql)
     result = await query(sql)
     result = JSON.parse(JSON.stringify(result))
-    
+    //更新bill表
+    sql = mysql.format(`
+        DELETE 
+        FROM
+            bills 
+        WHERE
+            semester = ?
+    `,45)
+    result = await query(sql)
+
+    sql = mysql.format(`
+        INSERT INTO bills SELECT
+        sid,
+        max( a.semester ) AS semester,
+        sum( price ) AS tot_price,
+        count( a.cid ) AS course_count,
+        0 AS paid 
+        FROM
+            student_course a
+            LEFT JOIN course b ON a.cid = b.cid 
+        WHERE
+            a.semester = ? 
+        GROUP BY
+            sid
+    `,45)
+    result = await query(sql)
+    // await query("commit;")
+
     fs.writeFileSync('./sys_config.json', 
         JSON.stringify({"semester":"45", "start_time":"--", "end_time":"--", "sys_name":"welcome", "state": 0}))
     tool.sys_init()
