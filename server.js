@@ -124,6 +124,7 @@ bill.use(multiparty())
 
 bill.get('/checkBill',require('./server/check_bill.js'))
 
+bill.post('/payBill',require('./server/pay_bill.js'))
 
 let server2 = bill.listen(3013,()=>{
     console.log('The bill system is listening on port : 3013')

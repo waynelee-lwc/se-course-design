@@ -13,6 +13,7 @@ $('.schetab-cell').click(function(e){
 })
 
 let address = 'http://www.wayne-lee.cn:3012'
+let billsys = 'http://www.wayne-lee.cn:3013'
 
 let user = {}
 let scheduleList = []   //course list
@@ -42,6 +43,9 @@ $(document).ready(()=>{
     //获取成绩
     getGrades()
 
+    //获取账单
+    getBill()
+
     // //选课列表
     // reloadTakable()
     // //分数
@@ -57,6 +61,51 @@ $('.stu-schedule-add').click(addSchedule)
 $('.stu-schedule-save').click(saveSchedule)
 $('.stu-schedule-commit').click(commitSchedule)
 $('.stu-schedule-delete').click(deleteSchedule)
+
+function getBill(){
+    $.ajax({
+        url:`${billsys}/checkbill`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                let bill = res.data[0]
+                if(bill){
+                    $('.stu-grades .operation').html($(`
+                        <button ${bill.paid == 0 ? '' : 'disabled'} class="pay-bill btn btn-success" disabled>Pay my bill (${bill.course_count} courses, ${bill.tot_price}$ totally)</button>
+                    `))
+                    $('.pay-bill').click(payBill)
+                }
+            }else{
+                
+            }
+        }
+    })
+}
+
+function payBill(){
+    if(!confirm(`sure to pay the bill ${bill.course_count} courses, ${bill.tot_price}$ totally?`)){
+        return
+    }
+
+    $.ajax({
+        url:`${billsys}/payBill`,
+        type:'get',
+        headers:{
+            'token':JSON.parse(localStorage.getItem('token')),
+        },
+        success:(res)=>{
+            if(res.code == 200){
+                alert('successfully！')
+                getBill()
+            }else{
+                alert(`failed! ${res.message}`)
+            }
+        }
+    })
+}
 
 let sysstat = {}
 function systemStatus(){

@@ -276,3 +276,8 @@ body{
 .block-shadow h2{
     
 }
+
+.stu-grades .operation{
+    display: flex;
+    justify-content: center;
+}
