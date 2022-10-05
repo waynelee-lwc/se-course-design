@@ -51,7 +51,7 @@ async function teach(req,res) {
     
     if (!check_result.re) {
         res.send({
-            "message": "选课失败",
+            "message": "任教失败，时间冲突",
             "code": 400,
             "data": check_result.rel
         })
@@ -62,7 +62,7 @@ async function teach(req,res) {
     result = await query(sql)
 
     res.send({
-        "message": "选课成功",
+        "message": "任教成功",
         "code":200
     })
     return 
