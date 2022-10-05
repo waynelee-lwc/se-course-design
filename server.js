@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var multiparty = require('connect-multiparty')
 var cors = require('cors')
 var tool = require('./tool.js')
+const checkBill = require('./server/check_bill.js')
 
 let app = express()
 app.use(cors())
@@ -104,3 +105,28 @@ tool.sys_init()
 let server = app.listen(3012,()=>{
     console.log('The server is listening on port : 3012')
 })
+
+//账单系统
+let bill = express()
+bill.use(cors())
+bill.use('/',express.static('./static'))
+
+//处理 x-www-form-urlencoded
+bill.use(bodyParser.urlencoded({
+    extended:true
+}));
+
+//处理 application/json
+bill.use(bodyParser.json())
+
+//处理 mutipart/form-data
+bill.use(multiparty())
+
+bill.get('/checkBill',require('./server/check_bill.js'))
+
+
+let server2 = bill.listen(3013,()=>{
+    console.log('The bill system is listening on port : 3013')
+})
+
+
