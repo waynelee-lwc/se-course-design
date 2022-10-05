@@ -215,12 +215,13 @@ function courseSetGrade(){
                 $('.grade-table tbody').empty()
 
                 for(let item of res.data){
+                    // console.log(item)
                     $('.grade-table tbody').append($(`
                     <tr>
                         <td>${item.sid}</td>
                         <td>${item.name}</td>
-                        <td><input type="number" value="${item.grade}"></td>
-                        <td><button class="btn btn-primary submit-grade" id="submit-grade-${item.sid}">update</button></td>
+                        <td><input type="number" value="${item.grades}" id="stu-grade-${item.sid}"></td>
+                        <td><button class="btn btn-primary submit-grade" id="submit-grade-${item.sid}-${id}">update</button></td>
                     </tr>
                     `))
                 }
@@ -239,7 +240,8 @@ function courseSetGrade(){
 
 function submitGrade(){
     let id = $(this).attr('id').split('-')[2]
-    let val = $(this).val()
+    let cid = $(this).attr('id').split('-')[3]
+    let val = $(`#stu-grade-${id}`).val()
 
     if(val < 0 || val > 100){
         alert('invaild grade!',val)
@@ -250,14 +252,49 @@ function submitGrade(){
         headers:{
             'token':JSON.parse(localStorage.getItem('token')),
         },
+        type:'post',
         data:{
-            cid:id,
-            grade:val
+            sid:id,
+            cid:cid,
+            grades:val
         },
         success:(res)=>{
             if(res.code == 200){
                 alert('successfully!')
-                courseSetGrade()
+                
+                $.ajax({
+                    url:`${address}/courseStudentList`,
+                    type:'get',
+                    headers:{
+                        'token':JSON.parse(localStorage.getItem('token')),
+                    },
+                    data:{
+                        id:cid
+                    },
+                    success:(res)=>{
+                        if(res.code == 200){
+                            $('.grade-table tbody').empty()
+            
+                            for(let item of res.data){
+                                $('.grade-table tbody').append($(`
+                                <tr>
+                                    <td>${item.sid}</td>
+                                    <td>${item.name}</td>
+                                    <td><input type="number" value="${item.grades}" id="stu-grade-${item.sid}"></td>
+                                    <td><button class="btn btn-primary submit-grade" id="submit-grade-${item.sid}-${id}">update</button></td>
+                                </tr>
+                                `))
+                            }
+            
+                            $('.submit-grade').click(submitGrade)
+                            showGrade()
+                        }else{
+                            alert(`fetch student list failed! ${res.message}`)
+                        }
+                    }
+            
+                })
+
             }else{
                 alert(`failed! ${res.message}`)
             }

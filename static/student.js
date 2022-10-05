@@ -62,6 +62,7 @@ $('.stu-schedule-save').click(saveSchedule)
 $('.stu-schedule-commit').click(commitSchedule)
 $('.stu-schedule-delete').click(deleteSchedule)
 
+let bill = {}
 function getBill(){
     $.ajax({
         url:`${billsys}/checkbill`,
@@ -71,10 +72,11 @@ function getBill(){
         },
         success:(res)=>{
             if(res.code == 200){
-                let bill = res.data[0]
+                bill = res.data[0]
                 if(bill){
+                    console.log(bill.paid == 0 ? '' : 'disabled')
                     $('.stu-grades .operation').html($(`
-                        <button ${bill.paid == 0 ? '' : 'disabled'} class="pay-bill btn btn-success" disabled>Pay my bill (${bill.course_count} courses, ${bill.tot_price}$ totally)</button>
+                        <button ${bill.paid == 0 ? '' : 'disabled'} class="pay-bill btn btn-success">Pay my bill (${bill.course_count} courses, ${bill.tot_price}$ totally)</button>
                     `))
                     $('.pay-bill').click(payBill)
                 }
@@ -92,7 +94,7 @@ function payBill(){
 
     $.ajax({
         url:`${billsys}/payBill`,
-        type:'get',
+        type:'post',
         headers:{
             'token':JSON.parse(localStorage.getItem('token')),
         },
