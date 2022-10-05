@@ -17,15 +17,17 @@ body{
 }
 
 .user-info{
-    /* border-right: 1px solid; */
     border-right: 1px solid;
     padding: 0rem;
+    overflow: hidden;
+    height: 100%;
 }
 
 .dashboard{
     padding: 0rem;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .icon{
@@ -108,8 +110,9 @@ body{
     /* border: 1px solid; */
     width: 95%;
     margin: auto;
-    height: 92%;
+    height: 100%;
     margin-top: 3%;
+    overflow: hidden;
 }
 
 .search-bar{
