@@ -121,12 +121,12 @@ function submitOpenReg(){
 }
 
 function professorList(){
-    let name = $('.search-bar-wrapper .pro_name input').val()
+    let name = $('.create-course-wrapper .pro_name input').val()
     let data = {}
     if(name != ''){
         data.name = name
     }
-    let id = $('.search-bar-wrapper .pro_id input').val()
+    let id = $('.create-course-wrapper .pro_id input').val()
     if(id != ''){
         data.id = id
     }
