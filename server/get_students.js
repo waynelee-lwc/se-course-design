@@ -18,12 +18,12 @@ async function getStudents(req,res){
     
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
 
-    var sql = mysql.format("select sid, name, birthday, ssn, status, dept from student where 1 ")
+    var sql = mysql.format("select sid, name, birthday, ssn, status, dept from student where 1=1 ")
 
-    // console.log(data.id)
+    console.log(data.id)
     
     if (data.id != undefined) {
-        sql += mysql.format(" and sid = ? ", [Number(data.id)])
+        sql += mysql.format(" and sid = ? ", [Number(tool.old_stu_id(data.id))])
     }
 
     if (data.name != undefined) {

@@ -22,7 +22,7 @@ async function getProfessors(req,res){
 
     // console.log(data.id)
     if (data.id != undefined) {
-        sql += mysql.format(" and pid = ? ", [Number(data.id)])
+        sql += mysql.format(" and pid = ? ", [Number(tool.old_pro_id(data.id))])
     }
 
     if (data.name != undefined) {
