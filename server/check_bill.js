@@ -18,8 +18,7 @@ async function checkBill(req,res) {
 
     sql = mysql.format("select * from bills where sid = ?",id)
     let result = await query(sql)
-
-    console.log(result)
+    
     res.send({
         "message": "",
         "code": 200,

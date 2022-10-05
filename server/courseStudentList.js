@@ -23,7 +23,6 @@ async function courseStudentList(req,res){
     
     var sql = mysql.format('select student.sid, grades, name from student_course join student on student.sid = student_course.sid where cid = ? and semester = ? ', [data.id, ls[0]])
     var result = await query(sql)
-    console.log(sql)
     if (result.status == 0) {
         res.send({
             "message": result.msg,

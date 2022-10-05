@@ -20,7 +20,7 @@ async function setGrades(req,res){
     var ls = tool.get_sys_info() 
 
     var sql = mysql.format("update student_course set grades = ? where sid = ? and cid = ? and semester = ? ", [data.grades, data.sid, data.cid, ls[0]])
-    console.log(sql)
+    // console.log(sql)
     var result = await query(sql)
     if (result.status == 0) {
         res.send({

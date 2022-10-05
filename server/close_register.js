@@ -92,7 +92,7 @@ async function closeRegister(req,res) {
         if (result[x].stu_num < 0) {
             sql = mysql.format("delete from course_schedule where cid = ?", [result[x].cid])
             let re = await query(sql)
-            console.log(result[x].cid)
+            // console.log(result[x].cid)
         }
     }
 

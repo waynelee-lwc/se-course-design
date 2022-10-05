@@ -10,6 +10,7 @@ async function teach(req,res) {
         return
     }
     var data = req.body
+    // console.log(req)
     var token = req.headers.token
     var tmp = tool.token_analysis(token)
     if (typeof(tmp) == "string") {

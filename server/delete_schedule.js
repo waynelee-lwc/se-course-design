@@ -30,7 +30,7 @@ async function deleteSchedule(req,res){
     
     sql = mysql.format("select * from schedule where sid = ? ", [id])
     result = await query(sql)
-    console.log(sql, '\n', result)
+    // console.log(sql, '\n', result)
 
     result = JSON.parse(JSON.stringify(result))
     if (result.status == 0) {

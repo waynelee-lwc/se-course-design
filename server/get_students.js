@@ -20,7 +20,7 @@ async function getStudents(req,res){
 
     var sql = mysql.format("select sid, name, birthday, ssn, status, dept from student where 1=1 ")
 
-    console.log(data.id)
+    // console.log(data.id)
     
     if (data.id != undefined) {
         sql += mysql.format(" and sid = ? ", [Number(tool.old_stu_id(data.id))])
