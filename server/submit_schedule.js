@@ -53,13 +53,16 @@ async function submitSchedule(req,res){
     }
 
     final_result = []
-
+    fix_result = []
     for (let x in wL) {
         let check_result = tool.check_time(oL, [wL[x]])
         sql = mysql.format("select stu_num from course_professor_timeslot where cid = ? and semester = ?", [wL[x].cid, ls[0]])
         result = await query(sql)
         result = JSON.parse(JSON.stringify(result))
-        if(result[0].stu_num >= 10) continue
+        if(result[0].stu_num >= 10) {
+            fix_result.push(wL[x].cid)
+            continue
+        }
         if(!check_result.re) {
             final_result.push(check_result.rel)
         } else {
@@ -72,7 +75,7 @@ async function submitSchedule(req,res){
     res.send({
         "message": "提交成功",
         "code": 200,
-        "data": final_result
+        "data": [final_result, fix_result]
     })
     res.end()
     return 
