@@ -7,7 +7,7 @@ let address = 'http://www.wayne-lee.cn:3012'
 
 $(document).ready(()=>{
 
-    let token = JSON.parse(localStorage.getItem('token'))
+    let token = JSON.parse(localStorage.getItem('reg-token'))
     if(!token){
         alert('Please login!')
         location.href('/index.html')
@@ -63,7 +63,7 @@ $('.profile-submit').on('click',function(){
     $.ajax({
         url:`${address}/user/update_profile`,
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('reg-token'))
             // token:'admin'
         },
         type:'post',
@@ -100,7 +100,7 @@ function submitOpenReg(){
         url:`${address}/openRegister`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:{
             sys_name:name,
@@ -135,7 +135,7 @@ function professorList(){
         url:`${address}/professorList`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:data,
         success:(res)=>{
@@ -174,7 +174,7 @@ function systemStatus(){
         url:`${address}/getSysStatus`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         success:(res)=>{
             console.log(res)
@@ -206,7 +206,7 @@ function closeRegistration(){
         url:`${address}/closeRegister`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         success:(res)=>{
             if(res.code == 200){
@@ -239,7 +239,7 @@ function updateProfessor(){
         url:`${address}/updateProfessor`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:{
             id:id,
@@ -273,7 +273,7 @@ function deleteProfessor(){
         url:`${address}/deleteProfessor`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:{
             id:id,
@@ -303,7 +303,7 @@ function addProfessor(){
         url:`${address}/addProfessor`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:{
             name:name,
@@ -338,7 +338,7 @@ function studentList(){
         url:`${address}/studentList`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:data,
         success:(res)=>{
@@ -405,7 +405,7 @@ function updateStudent(){
         url:`${address}/updateStudent`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:{
             id:id,
@@ -439,7 +439,7 @@ function deleteStudent(){
         url:`${address}/deleteStudent`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:{
             id:id,
@@ -470,7 +470,7 @@ function addStudent(){
         url:`${address}/addStudent`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         data:{
             name:name,
@@ -502,7 +502,7 @@ function addStudent(){
 //         url:`${address}/addProfessor`,
 //         type:'post',
 //         headers:{
-//             'token':JSON.parse(localStorage.getItem('token')),
+//             'token':JSON.parse(localStorage.getItem('reg-token')),
 //         },
 //         data:{
 //             name:name,
@@ -522,7 +522,7 @@ function checkProfile(){
         url:`${address}/profile`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('reg-token')),
         },
         success:function(res){
             if(res.code != 200){
@@ -565,7 +565,7 @@ function createCourse(){
     $.ajax({
         url:`${address}/admin/create_course`,
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('reg-token'))
             // token:'admin'
         },
         type:'post',
@@ -613,7 +613,7 @@ function loadSectionList(){
         url:`${address}/admin/section_list`,
         type:'get',
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('reg-token'))
             // token:'admin'
         },
         data:{
@@ -675,7 +675,7 @@ function updateStatus(){
         url:`${address}/admin/update_section`,
         type:'post',
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('reg-token'))
             // token:'admin'
         },
         data:{
@@ -717,7 +717,7 @@ function loadCourseList(){
         url:`${address}/admin/course_list`,
         type:'get',
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('reg-token'))
             // token:'admin'
         },
         data:{
@@ -894,7 +894,7 @@ function createSectionSubmit(){
         url:`${address}/admin/create_section`,
         type:'post',
         headers:{
-            token:JSON.parse(localStorage.getItem('token'))
+            token:JSON.parse(localStorage.getItem('reg-token'))
             // token:'admin'
         },
         data:{

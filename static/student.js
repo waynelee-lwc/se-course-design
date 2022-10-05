@@ -23,7 +23,7 @@ let backup1 = {}
 let backup2 = {}
 
 $(document).ready(()=>{
-    let token = JSON.parse(localStorage.getItem('token'))
+    let token = JSON.parse(localStorage.getItem('stu-token'))
     if(!token){
         alert('请先登录!')
         location.href('/index.html')
@@ -68,7 +68,7 @@ function getBill(){
         url:`${billsys}/checkbill`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         success:(res)=>{
             if(res.code == 200){
@@ -96,7 +96,7 @@ function payBill(){
         url:`${billsys}/payBill`,
         type:'post',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         success:(res)=>{
             if(res.code == 200){
@@ -115,7 +115,7 @@ function systemStatus(){
         url:`${address}/getSysStatus`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         success:(res)=>{
             console.log(res)
@@ -151,7 +151,7 @@ function addSchedule(){
     $.ajax({
         url:`${address}/addSchedule`,
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         type:'post',
         success:(res)=>{
@@ -173,7 +173,7 @@ function deleteSchedule(){
     $.ajax({
         url:`${address}/deleteSchedule`,
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         type:'post',
         success:(res)=>{
@@ -192,7 +192,7 @@ function commitSchedule(){
     $.ajax({
         url:`${address}/saveSchedule`,
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         data:{
             course_list:list
@@ -203,7 +203,7 @@ function commitSchedule(){
                 $.ajax({
                     url:`${address}/submitSchedule`,
                     headers:{
-                        'token':JSON.parse(localStorage.getItem('token')),
+                        'token':JSON.parse(localStorage.getItem('stu-token')),
                     },
                     type:'post',
                     success:(res)=>{
@@ -235,7 +235,7 @@ function saveSchedule(){
     $.ajax({
         url:`${address}/saveSchedule`,
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         data:{
             course_list:list
@@ -294,7 +294,7 @@ function getGrades(){
         url:`${address}/getGrades`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         success:(res)=>{
             if(res.code == 200){
@@ -342,7 +342,7 @@ function getCourseList(){
         url:`${address}/getStuCourses`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         success:(res)=>{
             if(res.code == 200){
@@ -458,7 +458,7 @@ function getSchedule(){
         url:`${address}/getSchedule`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
         },
         success:(res)=>{
             console.log(res)
@@ -641,7 +641,7 @@ function setProfile(){
         url:`${address}/profile`,
         type:'get',
         headers:{
-            'token':JSON.parse(localStorage.getItem('token')),
+            'token':JSON.parse(localStorage.getItem('stu-token')),
             // 'token':'student',
         },
         success:function(res){
