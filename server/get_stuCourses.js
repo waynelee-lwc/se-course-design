@@ -16,14 +16,15 @@ async function getStuCourses(req,res){
     }
 
     var id = tmp[0], role = tmp[1], name = tmp[2], kid = tmp[3] 
-    var sql = mysql.format("select * " +
-            " from (select cid, count(sche_id) as stu_num " + 
-            " from course_schedule " + 
-            " where state = 1 " + 
-            " group by cid) as tmp " + 
-            " right join course on course.cid = tmp.cid " + 
-            " join time_slot on time_slot.tsid = course.tsid " +
-            " right join teach on teach.cid = course.cid join (select name as professor_name, pid from professor) as professor on professor.pid = teach.pid")
+    var sql = mysql.format(`select * 
+            from (select cid, count(sche_id) as stu_num 
+            from course_schedule 
+            where state = 1 
+            group by cid) as tmp 
+            join course on course.cid = tmp.cid
+            join time_slot on time_slot.tsid = course.tsid 
+            left join teach on teach.cid = course.cid 
+            left join (select name as professor_name, pid from professor) as professor on professor.pid = teach.pid`)
 
     var result = await query(sql)
     // console.log(sql, '\n', result)
